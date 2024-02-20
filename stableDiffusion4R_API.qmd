@@ -1,0 +1,52 @@
+---
+title: "stableDiffusion4R API"
+format: html
+css: styles.css
+---
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+## Introduction to the stableDiffusion4R API
+
+stableDiffusion4R is an R interface to 'Stable Diffusion' APIs, and additional APIs, for AI-driven creative image transformations. This page guides you in using the stableDiffusion4R's API.
+
+## Test
+
+
+```{=html}
+<script src="./script.js"></script>
+
+<!-- Model selection button -->
+<button id="modelSelectBtn">Select Model</button>
+
+<!-- Popup (modal) for model selection -->
+<div id="modelSelectModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Please select a model</h2>
+    <!-- Add list or buttons for model selection here -->
+    <select id="modelOptions">
+      <option value="model1">Model 1</option>
+      <option value="model2">Model 2</option>
+      <!-- Existing models -->
+      <option value="gpt-3.5">GPT-3.5</option>
+      <option value="gpt-4">GPT-4</option>
+      <option value="phind">Phind</option>
+      <!-- New models -->
+    </select>
+    <button id="applyModel">Apply</button>
+  </div>
+</div>
+
+<div id="app">
+  <input type="text" id="userInput" placeholder="Enter text here" />
+  <button id="submitButton" onclick="submitForm()">Submit</button>
+  <div id="result">Results will be displayed here.</div>
+</div>
+```
+
+
+
