@@ -1,7 +1,10 @@
 import { useState, useRef } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Image from 'next/image';
 import { testApi, performanceApi, modelType } from '@/api';
+import { Loading, ModelButton } from '@/app/index';
+import { LoadingBackgroundColor } from '@/types';
+import { storyBoxColor } from '@/types';
 
 const Box = styled.div`
     width: 100%;
@@ -52,41 +55,6 @@ const ChosedModel = styled.h2`
     font-size: 35px;
 `;
 
-const ModelButton = styled.button`
-    margin: 5px;
-    height: 160px;
-    width: 160px;
-    list-style: none;
-    color: rgb(255, 255, 255);
-    font-size: 20px;
-    cursor: pointer;
-    border: none;
-    &:nth-of-type(4n + 1) {
-        background-color: rgba(0, 212, 138, 0.721);
-        &:hover {
-            background-color: rgb(0, 199, 130);
-        }
-    }
-    &:nth-of-type(4n + 2) {
-        background-color: rgba(218, 70, 248, 0.721);
-        &:hover {
-            background-color: rgb(218, 70, 248);
-        }
-    }
-    &:nth-of-type(4n + 3) {
-        background-color: rgba(0, 170, 212, 0.721);
-        &:hover {
-            background-color: rgb(0, 170, 212);
-        }
-    }
-    &:nth-of-type(4n) {
-        background-color: rgba(242, 158, 1, 0.721);
-        &:hover {
-            background-color: rgb(242, 158, 1);
-        }
-    }
-`;
-
 const VaridError = styled.p`
     text-align: center;
     color: rgb(255, 255, 255);
@@ -112,57 +80,6 @@ const GenerateImgButton = styled.button`
     }
 `;
 
-const Loading = styled.p`
-    margin: 30px 0px 0px;
-    font-size: 20px;
-    text-align: center;
-    color: rgb(255, 255, 255);
-`;
-
-const Gigantization = keyframes`
-    from {
-        opacity: 1;
-        scale:0;
-    }
-    to {
-        opacity: 0;
-        scale:1;
-    }
-`;
-
-const CircleBox = styled.div`
-    height: 300px;
-    width: 300px;
-    margin: 20px auto 20px;
-    position: relative;
-`;
-
-const Circle = styled.div`
-    height: 300px;
-    width: 300px;
-    border: 3px solid #fff;
-    border-radius: 50%;
-    background-color: rgb(1, 69, 255);
-    animation-duration: 8s;
-    animation-iteration-count: infinite;
-    position: absolute;
-    animation-name: ${Gigantization};
-    opacity: 0;
-`;
-
-const Circle1 = styled(Circle)`
-    animation-delay: 0s;
-`;
-const Circle2 = styled(Circle)`
-    animation-delay: 2s;
-`;
-const Circle3 = styled(Circle)`
-    animation-delay: 4s;
-`;
-const Circle4 = styled(Circle)`
-    animation-delay: 6s;
-`;
-
 const GenerateImg = () => {
     const inputPrompt = useRef<HTMLInputElement>(null);
     const [model, setModel] = useState<string>(modelType[0]);
@@ -179,7 +96,7 @@ const GenerateImg = () => {
         }
     };
 
-    const handleModel = (chooseModel: number) => {
+    const handleModel = (chooseModel: number): void => {
         setModel(modelType[chooseModel]);
     };
 
@@ -197,10 +114,14 @@ const GenerateImg = () => {
             <Label>Choose Model</Label>
             <ChosedModel data-testid="model-name">{model}</ChosedModel>
             <ModelDiv>
-                {modelType.map((el, i) => (
-                    <ModelButton data-testid={`${el}-button`} key={i} onClick={() => handleModel(i)}>
-                        {el}
-                    </ModelButton>
+                {modelType.map((modelName, index) => (
+                    <ModelButton
+                        key={index}
+                        modelName={modelName}
+                        index={index}
+                        handleModel={handleModel}
+                        storyBoxColor={storyBoxColor}
+                    />
                 ))}
             </ModelDiv>
             <PromptForm>
@@ -233,13 +154,7 @@ const GenerateImg = () => {
                         />
                     ) : (
                         <>
-                            <Loading data-testid="waiting-animation">Generate Image ...</Loading>
-                            <CircleBox>
-                                <Circle1></Circle1>
-                                <Circle2></Circle2>
-                                <Circle3></Circle3>
-                                <Circle4></Circle4>
-                            </CircleBox>
+                            <Loading backgroundColor={LoadingBackgroundColor} />
                         </>
                     )}
                 </>
