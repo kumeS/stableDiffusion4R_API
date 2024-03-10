@@ -1,6 +1,6 @@
 # stableDiffusion4R_API
 
-![The Well App](stableDiffusion4R.png)
+![stableDiffusion4R](./assets/stableDiffusion4R.png)
 
 <p align="center">
     <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="Contributors">
@@ -109,12 +109,14 @@ const performanceCurrectUrl = "";
 ### テストを実行するためのコマンド
 
 ```shell
+# frontendディレクトリで
 yarn test
 ```
 
 or
 
 ```shell
+# frontendディレクトリで
 yarn test:watch
 ```
 
@@ -261,20 +263,12 @@ function(prompt) {
 
 ```
 
-### バックエンドのテスト環境の環境構築
-
-※ Node.js 及び yarn がインストールされている前提で書いています。
-
-```shell
-cd test_api
-yarn
-```
-
 ### バックエンドのテスト環境のローカルサーバーの起動
 
 最初だけ以下のコマンドを実行する必要があります。
 
 ```shell
+# backend/testApiディレクトリで
 yarn
 ```
 
@@ -307,6 +301,7 @@ Mac 環境
 最初だけ以下のコマンドを実行する必要があります。
 
 ```shell
+# frontendディレクトリで
 yarn
 ```
 
@@ -321,14 +316,31 @@ yarn
 yarn dev
 ```
 
+### フロントエンドのコンポーネントのカタログ
+
+storybook を起動することでコンポーネントのカタログを見ることができます。
+
+```shell
+# frontendディレクトリで
+yarn storybook
+```
+
+ローディングアニメーションのコンポーネントと、モデルを選択するボタンのコンポーネントを見ることができます。
+
+以下のように、コンポーネントのカタログを見ることができます。
+
+![components catalog](./assets/catalog.gif)
+
 ### フロントエンドのビルド
 
 ```shell
+# frontendディレクトリで
 yarn build
 ```
 
 ### フロントエンドのビルド後のプログラムでローカルサーバーの起動
 
 ```shell
+# frontendディレクトリで
 yarn start
 ```
