@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/blocks';
+import Image from 'next/image';
+
+import Logo from './assets/stableDiffusion4R.png';
+
+<Meta title="stableDiffusion4R_API Component Catalog" />;
+
+<h1 className="title">stableDiffusion4R_API</h1>
+
+<div>
+    <Image
+        src={Logo}
+        width={0}
+        height={0}
+        sizes="100vw"
+        style={{ width: '100%', height: 'auto' }}
+        alt={'stableDiffusion4R_API'}
+    />
+</div>
+
+<style>
+    {`
+  .title {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 50px;
+  }
+  `}
+</style>

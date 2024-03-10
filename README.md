@@ -1,14 +1,33 @@
-# stableDiffusion4R
+# stableDiffusion4R_API
+
+![The Well App](stableDiffusion4R.png)
+
+<p align="center">
+    <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="Contributors">
+        <img src="https://img.shields.io/github/contributors/kumeS/stableDiffusion4R_API"/>
+    </a>
+    <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="Version">
+        <img src="https://badgen.net/static/version/0.0.1/green"/>
+    </a>
+    <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="forks">
+        <img src="https://img.shields.io/github/forks/kumeS/stableDiffusion4R_API"/>
+    </a>
+    <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="forks">
+        <img src="https://img.shields.io/github/stars/kumeS/stableDiffusion4R_API" />
+    </a>
+</p>
 
 ## backend
 
 本番環境: backend/performanceApi (plumber を使用)
 
+- LICENSE Apache 2.0
 - 使用言語: R
 - port: 8000
 
 テスト環境: backend/testApi (Hono を使用)
 
+- LICENSE MIT License
 - 使用言語: TypeScript
 - port: 8787
 
@@ -16,6 +35,7 @@
 
 Next.js: frontend
 
+- LICENSE MIT License
 - 使用言語: TypeScript
 - port: 3000
 

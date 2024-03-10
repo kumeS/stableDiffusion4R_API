@@ -1,11 +1,6 @@
 module.exports = {
     root: true,
-    extends: [
-        'plugin:@typescript-eslint/recommended', //Typescriptのエラーを無視させないためのpackageの反映
-        'next/core-web-vitals', //デフォルトの設定
-        'plugin:tailwindcss/recommended', //TailwindにESLintをかけるpackageの反映
-        'prettier', //Prettierの反映
-    ],
+    extends: ['plugin:@typescript-eslint/recommended', 'next/core-web-vitals', 'plugin:tailwindcss/recommended', 'prettier', 'plugin:storybook/recommended'],
     plugins: ['unused-imports'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
