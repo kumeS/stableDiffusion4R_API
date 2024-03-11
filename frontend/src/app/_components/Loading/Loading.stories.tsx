@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Loading } from '@/app/index';
 
 const meta = {
-    title: 'GENERATEIMAGE/Loading',
+    title: 'COMPONENTS/GenerateImageComponents/Loading',
     component: Loading,
     parameters: {
         layout: 'centered',

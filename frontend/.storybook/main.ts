@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/nextjs';
+//import aliasを有効化
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 const config: StorybookConfig = {
@@ -14,9 +15,12 @@ const config: StorybookConfig = {
         name: '@storybook/nextjs',
         options: {},
     },
+    //静的ファイルの読み込み
+    staticDirs: ['../public'],
     docs: {
         autodocs: 'tag',
     },
+    //import aliasを有効化
     webpackFinal: async (config) => {
         if (config.resolve) {
             config.resolve.plugins = [
@@ -29,4 +33,5 @@ const config: StorybookConfig = {
         return config;
     },
 };
+
 export default config;

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { GenerateImg } from '@/app/index';
-import { testApi, performanceApi, modelType } from '@/api';
+import { testApi, performanceApi, modelType } from '@/constants/api';
 import userEvent from '@testing-library/user-event';
 
 //*Web APIのサーバーのURLを書く

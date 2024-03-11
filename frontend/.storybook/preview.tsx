@@ -1,4 +1,9 @@
+import React from 'react';
 import type { Preview } from '@storybook/react';
+import { Inter } from 'next/font/google';
+
+//フォントを使用するための設定
+const inter = Inter({ subsets: ['latin'] });
 
 const preview: Preview = {
     parameters: {
@@ -9,6 +14,7 @@ const preview: Preview = {
                 date: /Date$/i,
             },
         },
+        //背景色の変更
         backgrounds: {
             default: 'default',
             values: [
@@ -23,6 +29,16 @@ const preview: Preview = {
             ],
         },
     },
+    //フォントを使用するための設定
+    decorators: [
+        (Story) => (
+            <>
+                <main className={inter.className}>
+                    <Story />
+                </main>
+            </>
+        ),
+    ],
 };
 
 export default preview;

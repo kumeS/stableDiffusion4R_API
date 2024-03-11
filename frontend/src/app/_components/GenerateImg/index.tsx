@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { testApi, performanceApi, modelType } from '@/api';
+import { testApi, performanceApi, modelType } from '@/constants/api';
 import { Loading, ModelButton } from '@/app/index';
 import { LoadingBackgroundColor } from '@/types';
 import { storyBoxColor } from '@/types';

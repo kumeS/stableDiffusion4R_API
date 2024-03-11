@@ -54,7 +54,11 @@ flowchart LR
     end
 ```
 
-### 使用するパッケージマネージャー
+### フロントエンドで使用するパッケージマネージャー
+
+#### npm
+
+### バックエンドのテスト環境で使用するパッケージマネージャー
 
 #### yarn
 
@@ -64,7 +68,7 @@ flowchart LR
 
 ### フロントエンド側の Web API に関係する設定
 
-#### frontend/src/api.ts
+#### frontend/src/constants/api.ts
 
 ```typescript
 const testApi: string = "http://127.0.0.1:8787";
@@ -110,14 +114,14 @@ const performanceCurrectUrl = "";
 
 ```shell
 # frontendディレクトリで
-yarn test
+npm test
 ```
 
 or
 
 ```shell
 # frontendディレクトリで
-yarn test:watch
+npm run test:watch
 ```
 
 ### バックエンドが返すデータ
@@ -302,7 +306,7 @@ Mac 環境
 
 ```shell
 # frontendディレクトリで
-yarn
+npm install
 ```
 
 フロントエンドのローカルサーバーの起動
@@ -313,7 +317,7 @@ yarn
 
 ```shell
 # frontendディレクトリで
-yarn dev
+npm run dev
 ```
 
 ### フロントエンドのコンポーネントのカタログ
@@ -322,10 +326,8 @@ storybook を起動することでコンポーネントのカタログを見る�
 
 ```shell
 # frontendディレクトリで
-yarn storybook
+npm run storybook
 ```
-
-ローディングアニメーションのコンポーネントと、モデルを選択するボタンのコンポーネントを見ることができます。
 
 以下のように、コンポーネントのカタログを見ることができます。
 
@@ -335,12 +337,12 @@ yarn storybook
 
 ```shell
 # frontendディレクトリで
-yarn build
+npm run build
 ```
 
 ### フロントエンドのビルド後のプログラムでローカルサーバーの起動
 
 ```shell
 # frontendディレクトリで
-yarn start
+npm start
 ```
