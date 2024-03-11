@@ -64,7 +64,7 @@ flowchart LR
 
 ### フロントエンド側の Web API に関係する設定
 
-#### frontend/src/api.ts
+#### frontend/src/constants/api.ts
 
 ```typescript
 const testApi: string = "http://127.0.0.1:8787";
