@@ -54,7 +54,11 @@ flowchart LR
     end
 ```
 
-### 使用するパッケージマネージャー
+### フロントエンドで使用するパッケージマネージャー
+
+#### npm
+
+### バックエンドのテスト環境で使用するパッケージマネージャー
 
 #### yarn
 
@@ -110,14 +114,14 @@ const performanceCurrectUrl = "";
 
 ```shell
 # frontendディレクトリで
-yarn test
+npm test
 ```
 
 or
 
 ```shell
 # frontendディレクトリで
-yarn test:watch
+npm run test:watch
 ```
 
 ### バックエンドが返すデータ
@@ -302,7 +306,7 @@ Mac 環境
 
 ```shell
 # frontendディレクトリで
-yarn
+npm install
 ```
 
 フロントエンドのローカルサーバーの起動
@@ -313,7 +317,7 @@ yarn
 
 ```shell
 # frontendディレクトリで
-yarn dev
+npm run dev
 ```
 
 ### フロントエンドのコンポーネントのカタログ
@@ -322,7 +326,7 @@ storybook を起動することでコンポーネントのカタログを見る�
 
 ```shell
 # frontendディレクトリで
-yarn storybook
+npm run storybook
 ```
 
 以下のように、コンポーネントのカタログを見ることができます。
@@ -333,12 +337,12 @@ yarn storybook
 
 ```shell
 # frontendディレクトリで
-yarn build
+npm run build
 ```
 
 ### フロントエンドのビルド後のプログラムでローカルサーバーの起動
 
 ```shell
 # frontendディレクトリで
-yarn start
+npm start
 ```
