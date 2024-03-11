@@ -4,7 +4,7 @@ import { storyBoxColor } from '@/types';
 import { action } from '@storybook/addon-actions';
 
 const meta = {
-    title: 'GENERATEIMAGE/ModelButton',
+    title: 'COMPONENTS/GenerateImageComponents/ModelButton',
     component: ModelButton,
     parameters: {
         layout: 'centered',

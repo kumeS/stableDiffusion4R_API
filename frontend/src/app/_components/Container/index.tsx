@@ -10,8 +10,8 @@ const StyleContainer = styled.div`
     margin: 0px 20px 50px;
 `;
 
-const Container = ({ children }: Props) => {
-    return <StyleContainer>{children}</StyleContainer>;
+const Container = (props: Props) => {
+    return <StyleContainer>{props.children}</StyleContainer>;
 };
 
 export default Container;
