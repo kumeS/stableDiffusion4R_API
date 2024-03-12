@@ -39,6 +39,11 @@ Next.js: frontend
 - 使用言語: TypeScript
 - port: 3000
 
+storybook: frontend
+
+- コンポーネントのタカログを見るもの
+- port: 6006
+
 ## 概略図
 
 ```mermaid
