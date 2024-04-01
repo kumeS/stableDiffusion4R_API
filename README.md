@@ -44,6 +44,27 @@ storybook: frontend
 - コンポーネントのタカログを見るもの
 - port: 6006
 
+## docker
+
+> [!NOTE]
+> frontend のみ Dockerfile を用意しています。
+
+```shell
+docker compose up -d
+```
+
+### ウェブアプリへのアクセス
+
+```text
+http://localhost:3000/
+```
+
+### storybook が生成したカタログへのアクセス
+
+```text
+http://localhost:6006/
+```
+
 ## 概略図
 
 ```mermaid
