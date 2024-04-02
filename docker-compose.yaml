@@ -1,21 +1,30 @@
 version: "3.8"
 
 services:
-  nextjs:
-    image: stablediffusion4r-nextjs
-    container_name: nextjs
-    build:
-      context: ./frontend/
-      dockerfile: ./Dockerfile.nextjs
-    ports:
-      - 3000:3000
-    tty: true
   storybook:
     image: stablediffusion4r-storybook
     container_name: storybook
     build:
       context: ./frontend/
-      dockerfile: ./Dockerfile.storybook
+      dockerfile: ./storybook.Dockerfile
     ports:
       - 6006:6006
+    tty: true
+  frontend:
+    image: stablediffusion4r-frontend
+    container_name: frontend
+    build:
+      context: ./frontend/
+      dockerfile: ./dev.Dockerfile
+    ports:
+      - 3000:3000
+    tty: true
+  backend:
+    image: stablediffusion4r-backend
+    container_name: backend
+    build:
+      context: ./backend/testApi
+      dockerfile: ./Dockerfile
+    ports:
+      - 8787:8787
     tty: true

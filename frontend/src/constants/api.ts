@@ -1,4 +1,4 @@
-const testApi: string = 'http://127.0.0.1:8787';
+const testApi: string = '/api';
 const performanceApi: string = '';
 
 const modelType: string[] = ['stableDiffusion4R', 'modelA', 'modelB', 'modelC'];
