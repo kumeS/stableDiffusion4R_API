@@ -105,7 +105,7 @@ const GenerateImg = () => {
         const inputValue: string | undefined = inputPrompt.current?.value;
         setPrompt(inputValue);
         if (typeof inputValue == 'string') {
-            getImg(testApi + '/' + model + '/' + inputValue);
+            getImg((process.env.NEXT_PUBLIC_API_URL || testApi) + '/' + model + '/' + inputValue);
         }
     };
     return (
