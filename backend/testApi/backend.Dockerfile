@@ -9,7 +9,7 @@ WORKDIR /home/backend
 
 COPY . ./
 
-RUN yarn
+RUN yarn install
 
 CMD ["yarn", "dev"]
 
