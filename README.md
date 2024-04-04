@@ -59,7 +59,7 @@ docker compose up -d
 ### MacOS / Linux
 
 ```shell
-gen_dotenv.sh
+sh gen_dotenv.sh
 docker compose up -d
 ```
 
