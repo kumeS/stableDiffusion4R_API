@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { testApi, performanceApi, modelType } from '@/constants/api';
+import { modelType } from '@/constants/api';
 import { Loading, ModelButton } from '@/app/index';
 import { LoadingBackgroundColor } from '@/types';
 import { storyBoxColor } from '@/types';
@@ -105,7 +105,7 @@ const GenerateImg = () => {
         const inputValue: string | undefined = inputPrompt.current?.value;
         setPrompt(inputValue);
         if (typeof inputValue == 'string') {
-            getImg((process.env.NEXT_PUBLIC_API_URL || testApi) + '/' + model + '/' + inputValue);
+            getImg(process.env.NEXT_PUBLIC_API_URL + '/' + model + '/' + inputValue);
         }
     };
     return (

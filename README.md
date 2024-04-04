@@ -46,9 +46,6 @@ storybook: frontend
 
 ## docker
 
-> [!NOTE]
-> frontend のみ Dockerfile を用意しています。
-
 ```shell
 docker compose up -d
 ```
