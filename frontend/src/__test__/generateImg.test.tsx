@@ -1,11 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { GenerateImg } from '@/app/index';
-import { testApi, performanceApi, modelType } from '@/constants/api';
+import { modelType } from '@/constants/api';
 import userEvent from '@testing-library/user-event';
 
-//*Web APIのサーバーのURLを書く
-const testCurrectUrl = 'http://127.0.0.1:8787';
-const performanceCurrectUrl = '';
+//*Web APIのURLを書く
+const setCorrectUrl = 'http://127.0.0.1:8787';
 
 describe('GenerateImg Component Test', () => {
     it('Render Component Test', () => {
@@ -23,16 +22,10 @@ describe('GenerateImg Component Test', () => {
         expect(modelNameLength === 2).toBeTruthy();
     });
 
-    it.each(modelType)(`Set Currect Test API URL Test: %s`, async (model) => {
-        const testUrl: string = testApi + '/' + model + '/' + 'hello';
-        const currectUrl: string = testCurrectUrl + '/' + model + '/hello';
-        expect(testUrl === currectUrl).toBeTruthy();
-    });
-
-    it.each(modelType)(`Set Currect Performance API URL Test: %s`, async (model) => {
-        const performanceUrl: string = performanceApi + '/' + model + '/' + 'hello';
-        const currectUrl: string = performanceCurrectUrl + '/' + model + '/hello';
-        expect(performanceUrl === currectUrl).toBeTruthy();
+    it.each(modelType)(`Set Correct API URL Test: %s`, async (model) => {
+        const testUrl: string = process.env.NEXT_PUBLIC_API_URL + '/' + model + '/' + 'hello';
+        const correctUrl: string = setCorrectUrl + '/' + model + '/hello';
+        expect(testUrl === correctUrl).toBeTruthy();
     });
 
     it(`Prompt Empty Test`, async () => {

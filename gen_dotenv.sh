@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #参考サイト: https://www.server-memo.net/shellscript/file_check.html
 #参考サイト: http://www.ajisaba.net/sh/get_dir.html
