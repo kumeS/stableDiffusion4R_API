@@ -20,8 +20,6 @@
     </a>
 </p>
 
-.
-
 ## backend
 
 本番環境: backend/performanceApi (plumber を使用)
