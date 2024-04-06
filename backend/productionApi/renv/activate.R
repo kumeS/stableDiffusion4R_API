@@ -74,7 +74,7 @@ local({
   if ("renv" %in% loadedNamespaces())
     unloadNamespace("renv")
 
-  # load bootstrap tools
+  # load bootstrap tools   
   `%||%` <- function(x, y) {
     if (is.null(x)) y else x
   }

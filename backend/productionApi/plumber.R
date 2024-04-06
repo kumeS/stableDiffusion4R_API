@@ -1,6 +1,5 @@
 library(plumber)
-# 正常に動作するか確認するために一時的にコメントアウトしています。
-# library(stableDiffusion4R)
+library(stableDiffusion4R)
 
 
 #参考: https://www.rplumber.io/articles/annotations.html
@@ -42,16 +41,4 @@ cors <- function(req, res) {
 function(prompt) {
   content <- prompt
   results <- generateDalleImage4R(content, Output_image = F, SaveImg = T)
-}
-
-
-
-
-
-#* 本番のテスト用エンドポイント
-#* @param prompt プロンプトを入力してください。
-#* @get /modelA/<prompt>
-function(prompt) {
-  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
-  return(result)
 }

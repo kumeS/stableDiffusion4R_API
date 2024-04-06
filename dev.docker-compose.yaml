@@ -1,18 +1,18 @@
 version: "3.8"
 
 services:
-  storybook:
+  stablediffusion4r_api-storybook:
     image: stablediffusion4r-storybook
-    container_name: storybook
+    container_name: stablediffusion4r-storybook
     build:
       context: ./frontend/
       dockerfile: ./storybook.Dockerfile
     ports:
       - 6006:6006
     tty: true
-  frontend:
-    image: stablediffusion4r-frontend
-    container_name: frontend
+  stablediffusion4r_api-frontend:
+    image: stablediffusion4r_api-frontend
+    container_name: stablediffusion4r_api-frontend
     build:
       context: ./frontend/
       dockerfile: ./frontend.Dockerfile
@@ -22,12 +22,12 @@ services:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
     tty: true
     depends_on:
-      - backend
-  backend:
-    image: stablediffusion4r-backend
-    container_name: backend
+      - stablediffusion4r_api-backend
+  stablediffusion4r_api-backend:
+    image: stablediffusion4r_api-backend
+    container_name: stablediffusion4r_api-backend
     build:
-      context: ./backend/testApi
+      context: ./backend/developmentApi
       dockerfile: ./backend.Dockerfile
     ports:
       - 8787:8787

@@ -10,6 +10,8 @@ rem 参考サイト: https://qiita.com/tera1707/items/e8c5cacac28b2cd7598f
 if not exist %~dp0.env (
     type nul > ./.env
     echo NEXT_PUBLIC_API_URL=http://localhost:8787>> ./.env
+    echo CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=>> ./.env
+    echo CLOUDFLARE_TUNNEL_TOKEN_BACKEND=>> ./.env
 ) else (
     echo .\.env is already exits.
 )

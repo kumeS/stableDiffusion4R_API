@@ -49,14 +49,6 @@ app.get('/modelC/:prompt', (c) => {
     });
 });
 
-app.get('/modelD/:prompt', (c) => {
-    const prompt = c.req.param('prompt');
-    return c.json({
-        prompt: prompt,
-        url: ['https://yukiosada.work/CG-Animation.webp'],
-    });
-});
-
 const port = 8787;
 
 console.log(`Server is running on port http://localhost:${port}`);

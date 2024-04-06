@@ -21,7 +21,9 @@ echo $FRONTENDPATH
 if [ ! -e $ROOTPATH ]; then
     touch $ROOTPATH
     cat <<EOT >$ROOTPATH
-NEXT_PUBLIC_API_URL="http://lcalhost:8787"
+NEXT_PUBLIC_API_URL=http://localhost:8787
+CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=
+CLOUDFLARE_TUNNEL_TOKEN_BACKEND=
 EOT
 else
     echo ./.env is already exits.

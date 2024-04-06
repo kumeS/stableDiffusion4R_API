@@ -1,16 +1,15 @@
-FROM r-base:4.3.3
+FROM rstudio/plumber
 
 LABEL version="0.0.1"
 LABEL description="This is the stableDiffusion4R_API docker image."
 
 USER root
 
-WORKDIR /home/backend
+WORKDIR /root
 
-COPY . ./
+COPY ./plumber.R ./plumber.R
 
-RUN yarn install
-
-CMD ["yarn", "dev"]
+#追加パッケージ
+# RUN R -e "install.packages("")"
 
 EXPOSE 8000
