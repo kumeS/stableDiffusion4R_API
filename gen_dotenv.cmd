@@ -9,16 +9,30 @@ rem 参考サイト: https://qiita.com/tera1707/items/e8c5cacac28b2cd7598f
 
 if not exist %~dp0.env (
     type nul > ./.env
+    echo #*dev>> ./.env
     echo NEXT_PUBLIC_API_URL=http://localhost:8787>> ./.env
-    echo CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=>> ./.env
-    echo CLOUDFLARE_TUNNEL_TOKEN_BACKEND=>> ./.env
+    echo >> ./.env
+    echo #*pre>> ./.env
+    echo # NEXT_PUBLIC_API_URL=http://localhost:8000>> ./.env
+    echo >> ./.env
+    echo #*production>> ./.env
+    echo # NEXT_PUBLIC_API_URL=>> ./.env
+    echo # CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=>> ./.env
+    echo # CLOUDFLARE_TUNNEL_TOKEN_BACKEND=>> ./.env
 ) else (
     echo .\.env is already exits.
 )
 
 if not exist %~dp0frontend\.env (
     type nul > ./frontend/.env
+    echo #*dev>> ./.env
     echo NEXT_PUBLIC_API_URL=http://localhost:8787>> ./frontend/.env
+    echo >> ./.env
+    echo #*pre>> ./.env
+    echo # NEXT_PUBLIC_API_URL=http://localhost:8000>> ./frontend/.env
+    echo >> ./.env
+    echo #*production>> ./.env
+    echo # NEXT_PUBLIC_API_URL=>> ./frontend/.env
 ) else (
     echo frontend\.env is already exits.
 )

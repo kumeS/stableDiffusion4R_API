@@ -21,9 +21,16 @@ echo $FRONTENDPATH
 if [ ! -e $ROOTPATH ]; then
     touch $ROOTPATH
     cat <<EOT >$ROOTPATH
+#*dev
 NEXT_PUBLIC_API_URL=http://localhost:8787
-CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=
-CLOUDFLARE_TUNNEL_TOKEN_BACKEND=
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+# NEXT_PUBLIC_API_URL=
+# CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=
+# CLOUDFLARE_TUNNEL_TOKEN_BACKEND=
 EOT
 else
     echo ./.env is already exits.
@@ -32,7 +39,14 @@ fi
 if [ ! -e $FRONTENDPATH ]; then
     touch $FRONTENDPATH
     cat <<EOT >$FRONTENDPATH
-NEXT_PUBLIC_API_URL="http://lcalhost:8787"
+#*dev
+NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+# NEXT_PUBLIC_API_URL=
 EOT
 else
     echo frontend/.env is already exits.
