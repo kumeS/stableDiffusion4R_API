@@ -163,7 +163,7 @@ modelType ・・・ 追加するモデルの名前を書く
 
 フロントエンドでは以下の URL が組み立てられます。
 
-[testURL or performanceURL]/[modelType]/[prompt]
+[frontend ディレクトリにある.env ファイル内の NEXT_NEXT_PUBLIC_API_URL]/[modelType]/[prompt]
 
 example) http://127.0.0.1:8787/stableDiffusion4R/hello
 
