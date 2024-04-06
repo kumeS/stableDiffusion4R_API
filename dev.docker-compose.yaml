@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  storybook:
+    image: stablediffusion4r-storybook
+    container_name: storybook
+    build:
+      context: ./frontend/
+      dockerfile: ./storybook.Dockerfile
+    ports:
+      - 6006:6006
+    tty: true
+  frontend:
+    image: stablediffusion4r-frontend
+    container_name: frontend
+    build:
+      context: ./frontend/
+      dockerfile: ./frontend.Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    tty: true
+    depends_on:
+      - backend
+  backend:
+    image: stablediffusion4r-backend
+    container_name: backend
+    build:
+      context: ./backend/testApi
+      dockerfile: ./backend.Dockerfile
+    ports:
+      - 8787:8787
+    tty: true

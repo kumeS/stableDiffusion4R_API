@@ -1,3 +1,4 @@
+import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { prettyJSON } from 'hono/pretty-json';
 import { cors } from 'hono/cors';
@@ -8,7 +9,7 @@ app.use(prettyJSON());
 app.use(
     '/*',
     cors({
-        origin: ['http://localhost:3000'],
+        origin: ['*'],
         allowHeaders: ['*'],
         allowMethods: ['GET'],
         exposeHeaders: ['*'],
@@ -56,4 +57,11 @@ app.get('/modelD/:prompt', (c) => {
     });
 });
 
-export default app;
+const port = 8787;
+
+console.log(`Server is running on port http://localhost:${port}`);
+
+serve({
+    fetch: app.fetch,
+    port,
+});
