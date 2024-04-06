@@ -172,7 +172,7 @@ example) http://127.0.0.1:8787/stableDiffusion4R/hello
 
 #### モデルを追加した際や Web API の URL が変わった際は、フロントエンド側のテストを必ず実行して問題ないことを確認する
 
-frontend/src/`__test__`/generateImg.test.tsx
+frontend/src/\_\_test\_\_/generateImg.test.tsx
 
 上記のファイルの中に以下の記述があります。
 
