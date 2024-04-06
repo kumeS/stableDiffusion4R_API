@@ -56,11 +56,11 @@ storybook: frontend
 ## 環境変数の設定
 
 > [!NOTE]
-> 本番環境では、frontend も backend も cloudflare tunnel を利用して配信することを想定しています。
+> 本番環境では、frontend を cloudflare tunnel を利用して配信することを想定しています。
 
 ### プロジェクトのルートにある .env ファイル
 
-> [!NOTE] > `NEXT_PUBLIC_API_URL`に公開した Web API の URL を設定してください。`CLOUDFLARE_TUNNEL_TOKEN_FRONTEND`に frontend 用に用意した cloudflare tunnel の token を設定してください。`CLOUDFLARE_TUNNEL_TOKEN_BACKEND`に backend 用に用意した cloudflare tunnel の token を設定してください。
+> [!NOTE] > `NEXT_PUBLIC_API_URL`に Web API の URL を設定してください。`CLOUDFLARE_TUNNEL_TOKEN`に frontend 用に用意した cloudflare tunnel の token を設定してください。
 
 ```.env
 #*dev
@@ -70,9 +70,8 @@ storybook: frontend
 # NEXT_PUBLIC_API_URL=http://localhost:8000
 
 #*production
-NEXT_PUBLIC_API_URL=
-CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=
-CLOUDFLARE_TUNNEL_TOKEN_BACKEND=
+NEXT_PUBLIC_API_URL=http://localhost:8000
+CLOUDFLARE_TUNNEL_TOKEN=
 ```
 
 ## Docker
