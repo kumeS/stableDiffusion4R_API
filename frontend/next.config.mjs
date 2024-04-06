@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
+    output: 'standalone',
     images: {
-        domains: ['127.0.0.1', 'yukiosada.work'], //ここにドメインを指定
+        domains: ['yukiosada.work'], //ここにドメインを指定
     },
 };
 

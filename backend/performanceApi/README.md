@@ -3,5 +3,3 @@
 Here is the API page for stableDiffusion4R, written in Quarto (.qmd) and JavaScript.
 
 This page is currently under development.
-
-

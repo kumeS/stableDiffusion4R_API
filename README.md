@@ -1,5 +1,8 @@
 # stableDiffusion4R_API
 
+> [!WARN]
+> 現在開発中です。
+
 ![stableDiffusion4R](./assets/stableDiffusion4R.png)
 
 <p align="center">
@@ -47,10 +50,36 @@ storybook: frontend
 ## docker
 
 > [!NOTE]
-> frontend のみ Dockerfile を用意しています。
+> docker のコンテナは、storybook のためのコンテナ・バックエンドのコンテナ・フロントエンドのコンテナの計 3 つが起動します。
+
+### Windows
+
+> [!NOTE]
+> 初回時のみ以下のコマンドを実行してください。
+
+```batch
+gen_dotenv.cmd
+```
+
+### Linux
+
+> [!NOTE]
+> 初回時のみ以下のコマンドを実行してください。
 
 ```shell
-docker compose up -d
+sh gen_dotenv.sh
+```
+
+### コンテナのビルドと起動 (開発時)
+
+```shell
+docker compose -f dev.docker-compose.yaml up -d
+```
+
+### コンテナのビルドと起動 (リリース時)
+
+```shell
+docker compose -f prod.docker-compose.yaml up -d
 ```
 
 ### ウェブアプリへのアクセス
@@ -97,17 +126,10 @@ flowchart LR
 #### frontend/src/constants/api.ts
 
 ```typescript
-const testApi: string = "http://127.0.0.1:8787";
-const performanceApi: string = "";
-
 const modelType: string[] = ["stableDiffusion4R", "modelA", "modelB", "modelC"];
 
 export { testApi, performanceApi, modelType };
 ```
-
-testApi ・・・ テスト用の API サーバーの URL を書く
-
-performanceApi 　・・・ 本番用の API サーバーの URL を書く
 
 modelType ・・・ 追加するモデルの名前を書く
 
@@ -126,14 +148,11 @@ frontend/src/`__test__`/generateImg.test.tsx
 
 上記のファイルの中に以下の記述があります。
 
-testCurrentUrl がテスト用の Web API の URL
-
-performanceCurrectUrl が本番用の Web API の URL
+setCorrectUrl が、Web API の URL
 
 ```typescript
-//*Web APIのサーバーのURLを書く
-const testCurrectUrl = "http://127.0.0.1:8787";
-const performanceCurrectUrl = "";
+//*Web APIのURLを書く
+const setCorrectUrl = "http://127.0.0.1:8787";
 ```
 
 ### テストを実行するためのコマンド
@@ -151,9 +170,6 @@ npm run test:watch
 ```
 
 ### バックエンドが返すデータ
-
-> [!NOTE]
-> tesApi も performanceApi も以下のデータ構造で返します。
 
 ```json
 {
@@ -173,6 +189,7 @@ backend/testApi/src/index.ts
 > エンドポイントは、`/モデル名/:prompt`で設定する必要があります。
 
 ```typescript
+import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { prettyJSON } from "hono/pretty-json";
 import { cors } from "hono/cors";
@@ -183,11 +200,10 @@ app.use(prettyJSON());
 app.use(
   "/*",
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["*"],
     allowHeaders: ["*"],
     allowMethods: ["GET"],
     exposeHeaders: ["*"],
-    maxAge: 600,
     credentials: true,
   })
 );
@@ -195,7 +211,7 @@ app.use(
 app.get("/stableDiffusion4R/:prompt", (c) => {
   const prompt = c.req.param("prompt");
   return c.json({
-    prompt: prompt,
+    prompt: [prompt],
     url: ["https://yukiosada.work/CG-Animation.webp"],
   });
 });
@@ -232,7 +248,14 @@ app.get("/modelD/:prompt", (c) => {
   });
 });
 
-export default app;
+const port = 8787;
+
+console.log(`Server is running on port http://localhost:${port}`);
+
+serve({
+  fetch: app.fetch,
+  port,
+});
 ```
 
 ### バックエンド側の Web API に関する設定 (本番環境)
@@ -249,19 +272,20 @@ backend/performanceApi/plumber.R
 
 ```r
 #* @filter cors
-cors <- function(res) {
+cors <- function(req, res) {
   res$setHeader("Access-Control-Allow-Origin", "*")
-  res$setHeader("Access-Control-Allow-Method", "GET")
-  res$setHeader("Access-Control-Allow-Headers", "*")
-  res$setHeader("Access-Control-Allow-Age", 600)
-  plumber::forward()
+  if (req$REQUEST_METHOD == "OPTIONS") {
+    res$setHeader("Access-Control-Allow-Methods", "GET")
+    res$setHeader(
+      "Access-Control-Allow-Headers",
+      req$HTTP_ACCESS_CONTROL_REQUEST_HEADERS
+    )
+    res$status <- 200
+    return(list())
+  } else {
+    plumber::forward()
+  }
 }
-```
-
-#### また、エンドポイントを追加した際には、各エンドポイントに以下の 1 行も追加してください。
-
-```r
-#* @preempt cors
 ```
 
 > [!NOTE]
@@ -271,26 +295,38 @@ cors <- function(res) {
 library(plumber)
 library(stableDiffusion4R)
 
-#以下がCORSに関する設定になります。
-#* @filter cors
-cors <- function(res) {
-  res$setHeader("Access-Control-Allow-Origin", "*")
-  res$setHeader("Access-Control-Allow-Method", "GET")
-  res$setHeader("Access-Control-Allow-Headers", "*")
-  res$setHeader("Access-Control-Allow-Age", 600)
-  plumber::forward()
-}
 
+#* @filter cors
+cors <- function(req, res) {
+  res$setHeader("Access-Control-Allow-Origin", "*")
+  if (req$REQUEST_METHOD == "OPTIONS") {
+    res$setHeader("Access-Control-Allow-Methods", "GET")
+    res$setHeader(
+      "Access-Control-Allow-Headers",
+      req$HTTP_ACCESS_CONTROL_REQUEST_HEADERS
+    )
+    res$status <- 200
+    return(list())
+  } else {
+    plumber::forward()
+  }
+}
 
 #* Generate Dalle Image for R
 #* @param prompt プロンプトを入力してください。
-#* @preempt cors
 #* @get /generateDalleImage4R/<prompt>
 function(prompt) {
-  content = prompt
-  results <- generateDalleImage4R(content, Output_image = F, SaveImg =T)
+  content <- prompt
+  results <- generateDalleImage4R(content, Output_image = F, SaveImg = T)
 }
 
+#* 本番のテスト用エンドポイント
+#* @param prompt プロンプトを入力してください。
+#* @get /modelA/<prompt>
+function(prompt) {
+  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
+  return(result)
+}
 ```
 
 ### バックエンドのテスト環境のローカルサーバーの起動
