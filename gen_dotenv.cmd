@@ -16,9 +16,8 @@ if not exist %~dp0.env (
     echo # NEXT_PUBLIC_API_URL=http://localhost:8000>> ./.env
     echo >> ./.env
     echo #*production>> ./.env
-    echo # NEXT_PUBLIC_API_URL=>> ./.env
-    echo # CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=>> ./.env
-    echo # CLOUDFLARE_TUNNEL_TOKEN_BACKEND=>> ./.env
+    echo # NEXT_PUBLIC_API_URL=http://localhost:8000>> ./.env
+    echo # CLOUDFLARE_TUNNEL_TOKEN=>> ./.env
 ) else (
     echo .\.env is already exits.
 )
@@ -32,7 +31,7 @@ if not exist %~dp0frontend\.env (
     echo # NEXT_PUBLIC_API_URL=http://localhost:8000>> ./frontend/.env
     echo >> ./.env
     echo #*production>> ./.env
-    echo # NEXT_PUBLIC_API_URL=>> ./frontend/.env
+    echo # NEXT_PUBLIC_API_URL=http://localhost:8000>> ./frontend/.env
 ) else (
     echo frontend\.env is already exits.
 )

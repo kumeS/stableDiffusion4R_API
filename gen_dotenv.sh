@@ -28,9 +28,8 @@ NEXT_PUBLIC_API_URL=http://localhost:8787
 # NEXT_PUBLIC_API_URL=http://localhost:8000
 
 #*production
-# NEXT_PUBLIC_API_URL=
-# CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=
-# CLOUDFLARE_TUNNEL_TOKEN_BACKEND=
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+# CLOUDFLARE_TUNNEL_TOKEN=
 EOT
 else
     echo ./.env is already exits.
@@ -46,7 +45,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8787
 # NEXT_PUBLIC_API_URL=http://localhost:8000
 
 #*production
-# NEXT_PUBLIC_API_URL=
+# NEXT_PUBLIC_API_URL=http://localhost:8000
 EOT
 else
     echo frontend/.env is already exits.

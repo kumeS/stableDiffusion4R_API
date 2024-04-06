@@ -27,14 +27,7 @@ services:
     restart: unless-stopped
     image: cloudflare/cloudflared:latest
     container_name: stablediffusion4r_api-cloudflared-frontend
-    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN_FRONTEND}
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
     depends_on:
       - stablediffusion4r_api-frontend
-      - stablediffusion4r_api-backend
-  stablediffusion4r_api-cloudflared-backend:
-    restart: unless-stopped
-    image: cloudflare/cloudflared:latest
-    container_name: stablediffusion4r_api-cloudflared-backend
-    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN_BACKEND}
-    depends_on:
       - stablediffusion4r_api-backend
