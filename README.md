@@ -55,8 +55,7 @@ storybook: frontend
 
 ## Docker
 
-> [!NOTE]
-> docker のコンテナは、storybook のためのコンテナ・バックエンドのコンテナ・フロントエンドのコンテナの計 3 つが起動します。
+### 共通
 
 ### Windows
 
@@ -76,25 +75,46 @@ gen_dotenv.cmd
 sh gen_dotenv.sh
 ```
 
-### コンテナのビルドと起動 (開発時)
-
-```shell
-docker compose -f dev.docker-compose.yaml up -d
-```
-
-### コンテナのビルドと起動 (リリース時)
+### 本番環境
 
 ```shell
 docker compose -f prod.docker-compose.yaml up -d
 ```
 
-### ウェブアプリへのアクセス
+### 本番のテスト環境
+
+```shell
+docker compose -f pre.docker-compose.yaml up -d
+```
+
+ウェブアプリへのアクセス
 
 ```text
 http://localhost:3000/
 ```
 
-### storybook が生成したカタログへのアクセス
+storybook が生成したカタログへのアクセス
+
+```text
+http://localhost:6006/
+```
+
+### 開発環境
+
+> [!NOTE]
+> docker のコンテナは、storybook のためのコンテナ・バックエンドのコンテナ・フロントエンドのコンテナの計 3 つが起動します。
+
+```shell
+docker compose -f dev.docker-compose.yaml up -d
+```
+
+ウェブアプリへのアクセス
+
+```text
+http://localhost:3000/
+```
+
+storybook が生成したカタログへのアクセス
 
 ```text
 http://localhost:6006/
@@ -104,11 +124,13 @@ http://localhost:6006/
 
 ```mermaid
 flowchart LR
-    testApi<--本番用--->Next.js
-    performanceApi<--開発時用--->Next.js
+    developmentApi<--開発時用--->Next.js
+    preApi<--本番のテスト用--->Next.js
+    productionApi<--本番用--->Next.js
     subgraph backend
-    testApi
-    performanceApi
+    developmentApi
+    preApi
+    productionApi
     end
     subgraph frontend
     Next.js
@@ -123,7 +145,7 @@ flowchart LR
 
 #### yarn
 
-### 使用を推奨している Visual Studio Code の拡張機能
+### 使用を推奨している Visual Studio Code の拡張機能　(TypeScript)
 
 #### Prettier - Code formatter
 
@@ -134,7 +156,7 @@ flowchart LR
 ```typescript
 const modelType: string[] = ["stableDiffusion4R", "modelA", "modelB", "modelC"];
 
-export { testApi, performanceApi, modelType };
+export { modelType };
 ```
 
 modelType ・・・ 追加するモデルの名前を書く
@@ -184,9 +206,9 @@ npm run test:watch
 }
 ```
 
-### バックエンド側の Web API に関する設定 (テスト環境)
+### バックエンド側の Web API に関する設定 (開発環境)
 
-backend/testApi/src/index.ts
+backend/developmentApi/src/index.ts
 
 > [!IMPORTANT]
 > Web API のエンドポイントの名前も modelType に書いた文字列と一致させる必要があります。
@@ -246,14 +268,6 @@ app.get("/modelC/:prompt", (c) => {
   });
 });
 
-app.get("/modelD/:prompt", (c) => {
-  const prompt = c.req.param("prompt");
-  return c.json({
-    prompt: prompt,
-    url: ["https://yukiosada.work/CG-Animation.webp"],
-  });
-});
-
 const port = 8787;
 
 console.log(`Server is running on port http://localhost:${port}`);
@@ -266,7 +280,7 @@ serve({
 
 ### バックエンド側の Web API に関する設定 (本番環境)
 
-backend/performanceApi/plumber.R
+backend/productionApi/plumber.R
 
 > [!IMPORTANT]
 > Web API のエンドポイントの名前も modelType に書いた文字列と一致させる必要があります。
@@ -325,14 +339,6 @@ function(prompt) {
   content <- prompt
   results <- generateDalleImage4R(content, Output_image = F, SaveImg = T)
 }
-
-#* 本番のテスト用エンドポイント
-#* @param prompt プロンプトを入力してください。
-#* @get /modelA/<prompt>
-function(prompt) {
-  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
-  return(result)
-}
 ```
 
 ### バックエンドのテスト環境のローカルサーバーの起動
@@ -340,14 +346,14 @@ function(prompt) {
 最初だけ以下のコマンドを実行する必要があります。
 
 ```shell
-# backend/testApiディレクトリで
+# backend/developmentApiディレクトリで
 yarn
 ```
 
 テスト環境のローカルサーバーの起動
 
 ```shell
-# backend/testApiディレクトリで
+# backend/developmentApiディレクトリで
 yarn dev
 ```
 
@@ -358,7 +364,7 @@ yarn dev
 Windows 環境
 
 ```batch
-rem backend/performanceApiディレクトリで
+rem backend/productionApiディレクトリで
 plumber.cmd
 ```
 
