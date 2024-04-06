@@ -22,13 +22,19 @@
 
 ## backend
 
-本番環境: backend/performanceApi (plumber を使用)
+本番環境: backend/productionApi (plumber を使用)
 
 - LICENSE Apache 2.0
 - 使用言語: R
 - port: 8000
 
-テスト環境: backend/testApi (Hono を使用)
+本番のテスト環境: backend/preApi (plumber を使用)
+
+- LICENSE Apache 2.0
+- 使用言語: R
+- port: 8000
+
+開発環境: backend/developmentApi (Hono を使用)
 
 - LICENSE MIT License
 - 使用言語: TypeScript
@@ -47,7 +53,7 @@ storybook: frontend
 - コンポーネントのタカログを見るもの
 - port: 6006
 
-## docker
+## Docker
 
 > [!NOTE]
 > docker のコンテナは、storybook のためのコンテナ・バックエンドのコンテナ・フロントエンドのコンテナの計 3 つが起動します。
