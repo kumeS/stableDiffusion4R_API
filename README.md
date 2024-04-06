@@ -1,6 +1,6 @@
 # stableDiffusion4R_API
 
-> [!WARN]
+> [!WARNING]
 > 現在開発中です。
 
 ![stableDiffusion4R](./assets/stableDiffusion4R.png)
