@@ -53,6 +53,28 @@ storybook: frontend
 - コンポーネントのタカログを見るもの
 - port: 6006
 
+## 環境変数の設定
+
+> [!NOTE]
+> 本番環境では、frontend も backend も cloudflare tunnel を利用して配信することを想定しています。
+
+### プロジェクトのルートにある .env ファイル
+
+> [!NOTE] > `NEXT_PUBLIC_API_URL`に公開した Web API の URL を設定してください。`CLOUDFLARE_TUNNEL_TOKEN_FRONTEND`に frontend 用に用意した cloudflare tunnel の token を設定してください。`CLOUDFLARE_TUNNEL_TOKEN_BACKEND`に backend 用に用意した cloudflare tunnel の token を設定してください。
+
+```.env
+#*dev
+# NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+NEXT_PUBLIC_API_URL=
+CLOUDFLARE_TUNNEL_TOKEN_FRONTEND=
+CLOUDFLARE_TUNNEL_TOKEN_BACKEND=
+```
+
 ## Docker
 
 ### 共通
@@ -135,6 +157,14 @@ flowchart LR
     subgraph frontend
     Next.js
     end
+```
+
+## 本番環境の概略図
+
+```mermaid
+flowchart LR
+    backend<--cloudflare tunnel--->frontend
+    frontend<--cloudflare tunnel--->client["client PC"]
 ```
 
 ### フロントエンドで使用するパッケージマネージャー
