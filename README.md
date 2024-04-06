@@ -163,8 +163,15 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    backend<--cloudflare tunnel--->frontend
-    frontend<--cloudflare tunnel--->client["client PC"]
+    backend<-->frontend
+    frontend<--cloudflare tunnel--->client["Client PC"]
+    subgraph Origin Server
+    backend
+    frontend
+    end
+    subgraph Client PC
+    client
+    end
 ```
 
 ### フロントエンドで使用するパッケージマネージャー
