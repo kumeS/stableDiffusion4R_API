@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: stablediffusion4r-frontend
+    container_name: frontend
+    build:
+      context: ./frontend/
+      dockerfile: ./frontend.Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    tty: true
+    depends_on:
+      - backend
+  backend:
+    image: stablediffusion4r-backend
+    container_name: backend
+    build:
+      context: ./backend/performanceApi
+      dockerfile: ./backend.Dockerfile
+    ports:
+      - 8000:8000
+    tty: true
+  cloudflared-frontend:
+    restart: unless-stopped
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN_FRONTEND}
+    depends_on:
+      - frontend
+      - backend
+  cloudflared-backend:
+    restart: unless-stopped
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN_BACKEND}
+    depends_on:
+      - backend

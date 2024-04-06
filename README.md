@@ -1,5 +1,8 @@
 # stableDiffusion4R_API
 
+> [!WARN]
+> 現在開発中です。
+
 ![stableDiffusion4R](./assets/stableDiffusion4R.png)
 
 <p align="center">
@@ -51,16 +54,32 @@ storybook: frontend
 
 ### Windows
 
+> [!NOTE]
+> 初回時のみ以下のコマンドを実行してください。
+
 ```batch
 gen_dotenv.cmd
-docker compose up -d
 ```
 
-### MacOS / Linux
+### Linux
+
+> [!NOTE]
+> 初回時のみ以下のコマンドを実行してください。
 
 ```shell
 sh gen_dotenv.sh
-docker compose up -d
+```
+
+### コンテナのビルドと起動 (開発時)
+
+```shell
+docker compose -f dev.docker-compose.yaml up -d
+```
+
+### コンテナのビルドと起動 (リリース時)
+
+```shell
+docker compose -f prod.docker-compose.yaml up -d
 ```
 
 ### ウェブアプリへのアクセス
