@@ -1,3 +1,4 @@
+import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { prettyJSON } from 'hono/pretty-json';
 import { cors } from 'hono/cors';
@@ -9,9 +10,9 @@ app.use(
     '/*',
     cors({
         origin: ['http://localhost:3000'],
-        allowHeaders: ['*'],
+        allowHeaders: ['Content-Type'],
         allowMethods: ['GET'],
-        exposeHeaders: ['*'],
+        exposeHeaders: ['Content-Type'],
         credentials: true,
     })
 );
@@ -48,12 +49,11 @@ app.get('/modelC/:prompt', (c) => {
     });
 });
 
-app.get('/modelD/:prompt', (c) => {
-    const prompt = c.req.param('prompt');
-    return c.json({
-        prompt: prompt,
-        url: ['https://yukiosada.work/CG-Animation.webp'],
-    });
-});
+const port = 8787;
 
-export default app;
+console.log(`Server is running on port http://localhost:${port}`);
+
+serve({
+    fetch: app.fetch,
+    port,
+});

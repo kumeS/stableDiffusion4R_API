@@ -6,4 +6,3 @@ cd $MY_DIRNAME
 Rscript pr.R
 
 exit
-
