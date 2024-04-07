@@ -18,7 +18,7 @@ services:
     image: stablediffusion4r_api-backend
     container_name: stablediffusion4r_api-backend
     build:
-      context: ./backend/preApi
+      context: ./backend/productionApi
       dockerfile: ./backend.Dockerfile
     ports:
       - 8000:8000

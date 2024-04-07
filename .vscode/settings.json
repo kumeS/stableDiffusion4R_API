@@ -1,5 +1,12 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["generateimg", "precomposed", "renv", "Skume", "testid"]
+  "cSpell.words": [
+    "Dalle",
+    "generateimg",
+    "precomposed",
+    "renv",
+    "Skume",
+    "testid"
+  ]
 }

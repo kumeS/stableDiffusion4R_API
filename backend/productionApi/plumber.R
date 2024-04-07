@@ -1,5 +1,5 @@
 library(plumber)
-library(stableDiffusion4R)
+# library(stableDiffusion4R)
 
 
 #参考: https://www.rplumber.io/articles/annotations.html

@@ -9,10 +9,10 @@ app.use(prettyJSON());
 app.use(
     '/*',
     cors({
-        origin: ['*'],
-        allowHeaders: ['*'],
+        origin: ['http://localhost:3000'],
+        allowHeaders: ['Content-Type'],
         allowMethods: ['GET'],
-        exposeHeaders: ['*'],
+        exposeHeaders: ['Content-Type'],
         credentials: true,
     })
 );

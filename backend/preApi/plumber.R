@@ -20,7 +20,7 @@ library(plumber)
 
 #* @filter cors
 cors <- function(req, res) {
-  res$setHeader("Access-Control-Allow-Origin", "*")
+  res$setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
   if (req$REQUEST_METHOD == "OPTIONS") {
     res$setHeader("Access-Control-Allow-Methods", "GET")
     res$setHeader(

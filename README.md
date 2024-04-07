@@ -264,10 +264,10 @@ app.use(prettyJSON());
 app.use(
   "/*",
   cors({
-    origin: ["*"],
-    allowHeaders: ["*"],
+    origin: ["http://localhost:3000"],
+    allowHeaders: ["Content-Type"],
     allowMethods: ["GET"],
-    exposeHeaders: ["*"],
+    exposeHeaders: ["Content-Type"],
     credentials: true,
   })
 );
@@ -324,7 +324,22 @@ backend/productionApi/plumber.R
 > [!IMPORTANT]
 > CORS に関する適切な設定をする必要があります。
 
-以下の設定では、不十分な箇所があります。
+developmentApi と preApi は、おそらく適切な設定ができてると思います。
+
+productionApi(本番環境で使う Web API)の設定には、不十分な設定の状態の箇所があります。
+
+> [!CAUTION]
+> Access-Control-Allow-Origin の設定を、"\*"からフロントエンドを配信するのに使用しているオリジンに変更してください。
+
+### オリジン名を「https://gen-img.example.hogehoge」とした場合は、以下のように設定する
+
+```r
+res$setHeader("Access-Control-Allow-Origin", "https://gen-img.example.hogehoge")
+```
+
+現在のプログラム状態は、以下のようになっています。
+
+/backend/productionApi/plumber.R
 
 ```r
 #* @filter cors
@@ -346,6 +361,10 @@ cors <- function(req, res) {
 
 > [!NOTE]
 > エンドポイントは、`/モデル名/<prompt>`で設定する必要があります。
+
+/backend/productionApi/plumber.R
+
+以下のプログラムの場合は、モデル名が「generateDalleImage4R」になります。
 
 ```r
 library(plumber)
