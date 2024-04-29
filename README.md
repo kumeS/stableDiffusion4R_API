@@ -5,22 +5,24 @@
 
 ![stableDiffusion4R](./assets/stableDiffusion4R.png)
 
-<p align="center">
-    <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="Contributors">
-        <img src="https://img.shields.io/github/contributors/kumeS/stableDiffusion4R_API"/>
-    </a>
-    <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="Version">
-        <img src="https://badgen.net/static/version/0.0.1/green"/>
-    </a>
-    <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="forks">
-        <img src="https://img.shields.io/github/forks/kumeS/stableDiffusion4R_API"/>
-    </a>
-    <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="forks">
-        <img src="https://img.shields.io/github/stars/kumeS/stableDiffusion4R_API" />
-    </a>
-</p>
+  <p align="center">
+      <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="Contributors">
+          <img src="https://img.shields.io/github/contributors/kumeS/stableDiffusion4R_API"/>
+      </a>
+      <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="Version">
+          <img src="https://badgen.net/static/version/0.0.1/green"/>
+      </a>
+      <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="forks">
+          <img src="https://img.shields.io/github/forks/kumeS/stableDiffusion4R_API"/>
+      </a>
+      <a href="https://github.com/kumeS/stableDiffusion4R_API" alt="forks">
+          <img src="https://img.shields.io/github/stars/kumeS/stableDiffusion4R_API" />
+      </a>
+  </p>
 
-## backend
+## 概要
+
+### backend
 
 本番環境: backend/productionApi (plumber を使用)
 
@@ -40,7 +42,7 @@
 - 使用言語: TypeScript
 - port: 8787
 
-## frontend
+### frontend
 
 Next.js: frontend
 
@@ -52,94 +54,6 @@ storybook: frontend
 
 - コンポーネントのタカログを見るもの
 - port: 6006
-
-## 環境変数の設定
-
-> [!NOTE]
-> 本番環境では、frontend を cloudflare tunnel を利用して配信することを想定しています。
-
-### プロジェクトのルートにある .env ファイル
-
-> [!NOTE] > `NEXT_PUBLIC_API_URL`に Web API の URL を設定してください。`CLOUDFLARE_TUNNEL_TOKEN`に frontend 用に用意した cloudflare tunnel の token を設定してください。
-
-```.env
-#*dev
-# NEXT_PUBLIC_API_URL=http://localhost:8787
-
-#*pre
-# NEXT_PUBLIC_API_URL=http://localhost:8000
-
-#*production
-NEXT_PUBLIC_API_URL=http://localhost:8000
-CLOUDFLARE_TUNNEL_TOKEN=
-```
-
-## Docker
-
-### 共通
-
-### Windows
-
-> [!NOTE]
-> 初回時のみ以下のコマンドを実行してください。
-
-```batch
-gen_dotenv.cmd
-```
-
-### Linux
-
-> [!NOTE]
-> 初回時のみ以下のコマンドを実行してください。
-
-```shell
-sh gen_dotenv.sh
-```
-
-### 本番環境
-
-```shell
-docker compose -f prod.docker-compose.yaml up -d
-```
-
-### 本番のテスト環境
-
-```shell
-docker compose -f pre.docker-compose.yaml up -d
-```
-
-ウェブアプリへのアクセス
-
-```text
-http://localhost:3000/
-```
-
-storybook が生成したカタログへのアクセス
-
-```text
-http://localhost:6006/
-```
-
-### 開発環境
-
-> [!NOTE]
-> docker のコンテナは、storybook のためのコンテナ・バックエンドのコンテナ・フロントエンドのコンテナの計 3 つが起動します。
-
-```shell
-docker compose -f dev.docker-compose.yaml up -d
-```
-
-ウェブアプリへのアクセス
-
-```text
-http://localhost:3000/
-```
-
-storybook が生成したカタログへのアクセス
-
-```text
-http://localhost:6006/
-```
 
 ## 概略図
 
@@ -173,17 +87,10 @@ flowchart LR
     end
 ```
 
-### フロントエンドで使用するパッケージマネージャー
+## Web API に関して
 
-#### npm
-
-### バックエンドのテスト環境で使用するパッケージマネージャー
-
-#### yarn
-
-### 使用を推奨している Visual Studio Code の拡張機能　(TypeScript)
-
-#### Prettier - Code formatter
+> [!TIP]
+> モデルを追加する際には、必ずお読みください。
 
 ### フロントエンド側の Web API に関係する設定
 
@@ -195,45 +102,22 @@ const modelType: string[] = ["stableDiffusion4R", "modelA", "modelB", "modelC"];
 export { modelType };
 ```
 
-modelType ・・・ 追加するモデルの名前を書く
+modelType ・・・ モデルの名前を書きます。
 
-フロントエンドでは以下の URL が組み立てられます。
+※ モデルを追加する場合は、modelType にモデル名を追加してください。
 
-[frontend ディレクトリにある.env ファイル内の NEXT_NEXT_PUBLIC_API_URL]/[modelType]/[prompt]
+### バックエンド側の Web API に関する設定 (plumber)
 
-example) http://127.0.0.1:8787/stableDiffusion4R/hello
+> [!NOTE]
+> エンドポイントは、`/モデル名/<prompt>`で設定する必要があります。
 
-> [!IMPORTANT]
-> frontend/next.config.mjs に、使用するドメインや IP アドレス？を書く必要があります。
+> ※フロントエンドでは以下の URL が組み立てられます。
+> [`frontend/.env` 内の NEXT_PUBLIC_API_URL]/[modelType]/[prompt]
+> example) http://127.0.0.1:8787/stableDiffusion4R/hello
 
-#### モデルを追加した際や Web API の URL が変わった際は、フロントエンド側のテストを必ず実行して問題ないことを確認する
+### 想定しているバックエンドが返すデータの構造
 
-frontend/src/\_\_test\_\_/generateImg.test.tsx
-
-上記のファイルの中に以下の記述があります。
-
-setCorrectUrl が、Web API の URL
-
-```typescript
-//*Web APIのURLを書く
-const setCorrectUrl = "http://127.0.0.1:8787";
-```
-
-### テストを実行するためのコマンド
-
-```shell
-# frontendディレクトリで
-npm test
-```
-
-or
-
-```shell
-# frontendディレクトリで
-npm run test:watch
-```
-
-### バックエンドが返すデータ
+※フロントエンドでは、このデータ構造でバックエンドがデータを返すことを想定して作成しています。
 
 ```json
 {
@@ -241,126 +125,6 @@ npm run test:watch
   "url": ["画像のURL"]
 }
 ```
-
-### バックエンド側の Web API に関する設定 (開発環境)
-
-backend/developmentApi/src/index.ts
-
-> [!IMPORTANT]
-> Web API のエンドポイントの名前も modelType に書いた文字列と一致させる必要があります。
-
-> [!NOTE]
-> エンドポイントは、`/モデル名/:prompt`で設定する必要があります。
-
-```typescript
-import { serve } from "@hono/node-server";
-import { Hono } from "hono";
-import { prettyJSON } from "hono/pretty-json";
-import { cors } from "hono/cors";
-
-const app = new Hono();
-app.use(prettyJSON());
-
-app.use(
-  "/*",
-  cors({
-    origin: ["http://localhost:3000"],
-    allowHeaders: ["Content-Type"],
-    allowMethods: ["GET"],
-    exposeHeaders: ["Content-Type"],
-    credentials: true,
-  })
-);
-
-app.get("/stableDiffusion4R/:prompt", (c) => {
-  const prompt = c.req.param("prompt");
-  return c.json({
-    prompt: [prompt],
-    url: ["https://yukiosada.work/CG-Animation.webp"],
-  });
-});
-
-app.get("/modelA/:prompt", (c) => {
-  const prompt = c.req.param("prompt");
-  return c.json({
-    prompt: prompt,
-    url: ["https://yukiosada.work/CG-Animation.webp"],
-  });
-});
-
-app.get("/modelB/:prompt", (c) => {
-  const prompt = c.req.param("prompt");
-  return c.json({
-    prompt: prompt,
-    url: ["https://yukiosada.work/CG-Animation.webp"],
-  });
-});
-
-app.get("/modelC/:prompt", (c) => {
-  const prompt = c.req.param("prompt");
-  return c.json({
-    prompt: prompt,
-    url: ["https://yukiosada.work/CG-Animation.webp"],
-  });
-});
-
-const port = 8787;
-
-console.log(`Server is running on port http://localhost:${port}`);
-
-serve({
-  fetch: app.fetch,
-  port,
-});
-```
-
-### バックエンド側の Web API に関する設定 (本番環境)
-
-backend/productionApi/plumber.R
-
-> [!IMPORTANT]
-> Web API のエンドポイントの名前も modelType に書いた文字列と一致させる必要があります。
-
-> [!IMPORTANT]
-> CORS に関する適切な設定をする必要があります。
-
-developmentApi と preApi は、おそらく適切な設定ができてると思います。
-
-productionApi(本番環境で使う Web API)の設定には、不十分な設定の状態の箇所があります。
-
-> [!CAUTION]
-> Access-Control-Allow-Origin の設定を、"\*"からフロントエンドを配信するのに使用しているオリジンに変更してください。
-
-### オリジン名を「https://gen-img.example.hogehoge」とした場合は、以下のように設定する
-
-```r
-res$setHeader("Access-Control-Allow-Origin", "https://gen-img.example.hogehoge")
-```
-
-現在のプログラム状態は、以下のようになっています。
-
-/backend/productionApi/plumber.R
-
-```r
-#* @filter cors
-cors <- function(req, res) {
-  res$setHeader("Access-Control-Allow-Origin", "*")
-  if (req$REQUEST_METHOD == "OPTIONS") {
-    res$setHeader("Access-Control-Allow-Methods", "GET")
-    res$setHeader(
-      "Access-Control-Allow-Headers",
-      req$HTTP_ACCESS_CONTROL_REQUEST_HEADERS
-    )
-    res$status <- 200
-    return(list())
-  } else {
-    plumber::forward()
-  }
-}
-```
-
-> [!NOTE]
-> エンドポイントは、`/モデル名/<prompt>`で設定する必要があります。
 
 /backend/productionApi/plumber.R
 
@@ -396,82 +160,422 @@ function(prompt) {
 }
 ```
 
-### バックエンドのテスト環境のローカルサーバーの起動
+## 本番環境のセットアップ (Docker を利用しない場合)
 
-最初だけ以下のコマンドを実行する必要があります。
+> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
 
-```shell
-# backend/developmentApiディレクトリで
-yarn
+> [!NOTE]
+> 本番環境では、frontend を cloudflare tunnel を利用して配信することを想定しています。
+
+1. cloudflare tunnel を作成します。
+
+- Service は、`http://localhost:3000`にします。
+
+- ホストマシンの環境に合わせて、cloudflare tunnel をセットアップしてください。
+
+2. `.env`ファイルを作成し、`.env.prod.example`を参考に適切に環境変数を設定します。
+
+- `.env`ファイルは、`gen_dotenv.cmd`(Windows 環境の場合)か`sh gen_dotenv.sh`(Linux 環境の場合)を実行することで生成できます。(初回時のみ実行してください。)
+
+- `NEXT_PUBLIC_API_URL`は、`.env.prod.example`に書いている情報をそのまま使ってください。
+
+- `CLOUDFLARE_TUNNEL_TOKEN`は、何も書かなくて OK です。
+
+以下のようになっていれば、OK です。
+
+#### `.env`
+
+```.env
+#*dev
+# NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+NEXT_PUBLIC_API_URL=http://localhost:8000
+CLOUDFLARE_TUNNEL_TOKEN=
 ```
 
-テスト環境のローカルサーバーの起動
+#### `frontend/.env`
 
-```shell
-# backend/developmentApiディレクトリで
-yarn dev
+```.env
+#*dev
+# NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
-### バックエンドの本番環境のローカルサーバーの起動
+2. `backend/productionApi`で以下のコマンドを実行します。
 
-※ R 及び renv (package 名) がインストールされる前提で書いています。
+※ローカルサーバーが起動します。
 
-Windows 環境
+Windows
 
-```batch
-rem backend/productionApiディレクトリで
+```shell
 plumber.cmd
 ```
 
-Mac 環境
+Mac
 
 ```shell
-# 不明です。
+#すいませんわかりません...。
 ```
 
-### フロントエンドのローカルサーバーの起動
+3. `frontend`で以下のコマンドを実行します。
 
-最初だけ以下のコマンドを実行する必要があります。
+- フロントエンドで使用するパッケージマネージャー: npm
 
 ```shell
-# frontendディレクトリで
-npm install
+npm i
 ```
 
-フロントエンドのローカルサーバーの起動
+4. `frontend`で以下のコマンドを実行します。
+
+※`npm start`で Web App をローカルサーバーで起動します。
+
+```shell
+npm run build
+npm start
+```
+
+## 本番環境のセットアップ (Docker を利用する場合)
+
+> [!NOTE]
+> 本番環境では、frontend を cloudflare tunnel を利用して配信することを想定しています。
+
+1. cloudflare tunnel を作成します。
+
+- cloudflare tunnel を作成する際に、token を控えておきます。
+  ※Overview の Choose your environment で Docker を選択して表示される「Run the following command: 」の`--token`以降が token です。
+
+- Service は、`http://stablediffusion4r_api-frontend:3000`にします。
+
+2. `.env`ファイルを作成し、`.env.prod.example`を参考に適切に環境変数を設定します。
+
+- `.env`ファイルは、`gen_dotenv.cmd`(Windows 環境の場合)か`sh gen_dotenv.sh`(Linux 環境の場合)を実行することで生成できます。(初回時のみ実行してください。)
+
+- `NEXT_PUBLIC_API_URL`は、`.env.prod.example`に書いている情報をそのまま使ってください。
+
+- `CLOUDFLARE_TUNNEL_TOKEN`は、1. で控えておいた token を書いてください。
+
+以下のようになっていれば、OK です。
+
+#### `.env`
+
+```.env
+#*dev
+# NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+NEXT_PUBLIC_API_URL=http://localhost:8000
+CLOUDFLARE_TUNNEL_TOKEN=<控えておいたtokenを書きます。>
+```
+
+#### `frontend/.env`
+
+```.env
+#*dev
+# NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+2.
+
+3. `docker compose -f prod.docker-compose.yaml up -d`を実行します。
+
+- このコマンドで、コンテナのビルドから起動までします。
+
+- cloudflare tunnel のコンテナ・バックエンドのコンテナ・フロントエンドのコンテナの計 3 つが起動します。
+
+Finish！
+
+## 本番のテスト用の環境のセットアップ
+
+1. `.env`ファイルを作成し、`.env.pre.example`を参考に適切に環境変数を設定します。
+
+- `.env`ファイルは、`gen_dotenv.cmd`(Windows 環境の場合)か`gen_dotenv.sh`(Linux 環境の場合)を実行することで生成できます。
+
+- `NEXT_PUBLIC_API_URL`は、`.env.pre.example`に書いている情報をそのまま使ってください。
+
+以下のようになっていれば、OK です。
+
+#### `.env`
+
+```.env
+#*dev
+# NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+# CLOUDFLARE_TUNNEL_TOKEN=
+```
+
+#### `frontend/.env`
+
+```.env
+#*dev
+# NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+2. CORS に関する適切な設定をします。
+
+productionApi(本番環境で使う Web API)の設定には、不十分な設定の状態の箇所があります。
+
+> [!CAUTION]
+> Access-Control-Allow-Origin の設定を、"\*"からフロントエンドを配信するのに使用しているオリジンに変更してください。
+
+オリジン名を「https://gen-img.example.hogehoge」とした場合は、以下のように設定します。
+
+```r
+res$setHeader("Access-Control-Allow-Origin", "https://gen-img.example.hogehoge")
+```
+
+現在の CORS の設定は、以下のようになっています。
+
+/backend/productionApi/plumber.R
+
+```r
+#* @filter cors
+cors <- function(req, res) {
+  res$setHeader("Access-Control-Allow-Origin", "*")
+  if (req$REQUEST_METHOD == "OPTIONS") {
+    res$setHeader("Access-Control-Allow-Methods", "GET")
+    res$setHeader(
+      "Access-Control-Allow-Headers",
+      req$HTTP_ACCESS_CONTROL_REQUEST_HEADERS
+    )
+    res$status <- 200
+    return(list())
+  } else {
+    plumber::forward()
+  }
+}
+```
+
+3. `docker compose -f pre.docker-compose.yaml up -d`を実行します。
+
+- このコマンドで、コンテナのビルドから起動までします。
+
+- バックエンドのコンテナ・フロントエンドのコンテナの計 2 つが起動します。
+
+Finish！
+
+ウェブアプリへのアクセス
+
+```text
+http://localhost:3000/
+```
+
+storybook が生成したカタログへのアクセス
+
+```text
+http://localhost:6006/
+```
+
+## 開発環境のセットアップ (Docker を利用しない場合)
+
+> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
+
+1. `.env`ファイルを作成し、`.env.dev.example`を参考に適切に環境変数を設定します。
+
+- `.env`ファイルは、`gen_dotenv.cmd`(Windows 環境の場合)か`gen_dotenv.sh`(Linux 環境の場合)を実行することで生成できます。
+
+- `NEXT_PUBLIC_API_URL`は、`.env.dev.example`に書いている情報をそのまま使ってください。
+
+以下のようになっていれば、OK です。
+
+#### `.env`
+
+```.env
+#*dev
+NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+# CLOUDFLARE_TUNNEL_TOKEN=
+```
+
+#### `frontend/.env`
+
+```.env
+#*dev
+NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+2. `backend/developmentApi`で以下のコマンドを実行します。
+
+※`yarn dev`で Web API をローカルサーバーで起動します。
+
+- バックエンドで使用するパッケージマネージャー: yarn
 
 ※ バックエンドのローカルサーバーも起動しておかないと、画像生成の機能がうまく動作しません。
 
 (現在はポートが 8787 で、ダミーのデータを返すようにしています。)
 
 ```shell
-# frontendディレクトリで
+yarn
+yarn dev
+```
+
+3. `frontend`で以下のコマンドを実行します。
+
+- フロントエンドで使用するパッケージマネージャー: npm
+
+```shell
+npm i
+```
+
+→ Web App を起動する場合、`frontend`で以下のコマンドを実行します。
+
+※`npm run dev`で Web App をローカルサーバーで起動します。
+
+```shell
 npm run dev
 ```
 
-### フロントエンドのコンポーネントのカタログ
+ウェブアプリへのアクセス
 
-storybook を起動することでコンポーネントのカタログを見ることができます。
+```text
+http://localhost:3000/
+```
+
+→ Storybook のカタログを見る場合、`frontend`で以下のコマンドを実行します。
+
+※`npm run dev`で Storybook のカタログを起動します。
 
 ```shell
-# frontendディレクトリで
 npm run storybook
 ```
 
-以下のように、コンポーネントのカタログを見ることができます。
+storybook が生成したカタログへのアクセス
 
-![components catalog](./assets/catalog.gif)
+```text
+http://localhost:6006/
+```
 
-### フロントエンドのビルド
+### 開発環境でテストを実行するためのコマンド
+
+> [!NOTE]
+> モデルを追加した際にテストを実行して、テストが通ることを確認してください。
+
+```shell
+# frontendディレクトリで
+npm test
+```
+
+or
+
+```shell
+# frontendディレクトリで
+npm run test:watch
+```
+
+### 開発環境でフロントエンドをビルドし、ビルド後のもので起動するコマンド
+
+- フロントエンドのビルド
 
 ```shell
 # frontendディレクトリで
 npm run build
 ```
 
-### フロントエンドのビルド後のプログラムでローカルサーバーの起動
+- ビルド後のものでローカルサーバーの起動
 
 ```shell
 # frontendディレクトリで
 npm start
+```
+
+## Storybook
+
+以下のように、コンポーネントのカタログを見ることができます。
+
+![components catalog](./assets/catalog.gif)
+
+## 開発環境のセットアップ (Docker を利用した場合)
+
+1. `.env`ファイルを作成し、`.env.dev.example`を参考に適切に環境変数を設定します。
+
+- `.env`ファイルは、`gen_dotenv.cmd`(Windows 環境の場合)か`gen_dotenv.sh`(Linux 環境の場合)を実行することで生成できます。
+
+- `NEXT_PUBLIC_API_URL`は、`.env.dev.example`に書いている情報をそのまま使ってください。
+
+以下のようになっていれば、OK です。
+
+#### `.env`
+
+```.env
+#*dev
+NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+# CLOUDFLARE_TUNNEL_TOKEN=
+```
+
+#### `frontend/.env`
+
+```.env
+#*dev
+NEXT_PUBLIC_API_URL=http://localhost:8787
+
+#*pre
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+
+#*production
+# NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+2. `docker compose -f dev.docker-compose.yaml up -d`を実行します。
+
+- このコマンドで、コンテナのビルドから起動までします。
+
+- storybook のためのコンテナ・バックエンドのコンテナ・フロントエンドのコンテナの計 3 つが起動します。
+
+Finish！
+
+ウェブアプリへのアクセス
+
+```text
+http://localhost:3000/
+```
+
+storybook が生成したカタログへのアクセス
+
+```text
+http://localhost:6006/
 ```
