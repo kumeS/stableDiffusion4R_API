@@ -35,10 +35,40 @@ cors <- function(req, res) {
   }
 }
 
-#* Generate Dalle Image for R
+#* 本番のテスト用エンドポイント
 #* @param prompt プロンプトを入力してください。
-#* @get /generateDalleImage4R/<prompt>
+#* @get /stableDiffusion4R/<prompt>
 function(prompt) {
-  content <- prompt
-  results <- generateDalleImage4R(content, Output_image = F, SaveImg = T)
+  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
+  return(result)
 }
+
+#* @param prompt プロンプトを入力してください。
+#* @get /modelA/<prompt>
+function(prompt) {
+  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
+  return(result)
+}
+
+#* @param prompt プロンプトを入力してください。
+#* @get /modelB/<prompt>
+function(prompt) {
+  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
+  return(result)
+}
+
+#* @param prompt プロンプトを入力してください。
+#* @get /modelC/<prompt>
+function(prompt) {
+  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
+  return(result)
+}
+
+#*以下、本番で使用する予定のプログラムです。
+# #* Generate Dalle Image for R
+# #* @param prompt プロンプトを入力してください。
+# #* @get /generateDalleImage4R/<prompt>
+# function(prompt) {
+#   content <- prompt
+#   results <- generateDalleImage4R(content, Output_image = F, SaveImg = T)
+# }
