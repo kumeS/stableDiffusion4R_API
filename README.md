@@ -128,7 +128,7 @@ modelType ・・・ モデルの名前を書きます。
 
 /backend/productionApi/plumber.R
 
-以下のプログラムの場合は、モデル名が「generateDalleImage4R」になります。
+以下のプログラムの場合は、モデル名が「stableDiffusion4R」になります。
 
 ```r
 library(plumber)
@@ -153,7 +153,7 @@ cors <- function(req, res) {
 
 #* Generate Dalle Image for R
 #* @param prompt プロンプトを入力してください。
-#* @get /generateDalleImage4R/<prompt>
+#* @get /stableDiffusion4R/<prompt>
 function(prompt) {
   content <- prompt
   results <- generateDalleImage4R(content, Output_image = F, SaveImg = T)
@@ -238,6 +238,9 @@ npm i
 5. `frontend`で以下のコマンドを実行します。
 
 ※`npm start`で Web App をローカルサーバーで起動します。
+
+> [!TIP]
+> `frontend`配下にあるプログラムに変更を加えた場合は、`npm run build`と`npm start`を`npm run build` -> `npm run start`の順で実行してください。
 
 ```shell
 npm run build
