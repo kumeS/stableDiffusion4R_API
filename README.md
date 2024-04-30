@@ -101,6 +101,9 @@ flowchart LR
 
 ##### バックエンドのエンドポイントを`/modelA/<prompt>`としている場合、`modelType: string[] = ["modelA"]`とします。
 
+> [!WARNING]
+> 以下の説明は、エンドポイントの名前をモデル名としているという仮定の下で、説明しています。
+
 ### フロントエンド側の Web API に関係する設定
 
 #### frontend/src/constants/api.ts
