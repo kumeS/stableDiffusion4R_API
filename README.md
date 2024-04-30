@@ -94,9 +94,12 @@ flowchart LR
 
 > [!IMPORTANT]
 > バックエンドのエンドポイントとmodelTypeの要素名は一致させる必要があります。
-> バックエンドのエンドポイントを書くファイル -> `/backend/productionApi/plumber.R`
-> modelTypeが書いているファイル -> `frontend/src/constants/api.ts`
-> バックエンドのエンドポイントを`/modelA/<prompt>`としている場合、`modelType: string[] = ["modelA"]`とします。
+
+##### バックエンドのエンドポイントを書くファイル -> `/backend/productionApi/plumber.R`
+
+##### modelTypeが書いているファイル -> `frontend/src/constants/api.ts`
+
+##### バックエンドのエンドポイントを`/modelA/<prompt>`としている場合、`modelType: string[] = ["modelA"]`とします。
 
 ### フロントエンド側の Web API に関係する設定
 
