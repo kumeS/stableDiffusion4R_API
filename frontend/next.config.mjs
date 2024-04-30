@@ -2,7 +2,7 @@
 const nextConfig = {
     output: 'standalone',
     images: {
-        domains: ['yukiosada.work'], //ここにドメインを指定
+        domains: ['yukiosada.work', 'localhost:8000'], //ここにドメインを指定
     },
 };
 
