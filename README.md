@@ -162,7 +162,8 @@ function(prompt) {
 
 ## 本番環境のセットアップ (Docker を利用しない場合)
 
-> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
+> [!NOTE]
+> `Node.js`・`npm`・`yarn`が必要です。
 
 > [!NOTE]
 > 本番環境では、frontend を cloudflare tunnel を利用して配信することを想定しています。
@@ -396,7 +397,8 @@ http://localhost:6006/
 
 ## 開発環境のセットアップ (Docker を利用しない場合)
 
-> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
+> [!NOTE]
+> `Node.js`・`npm`・`yarn`が必要です。
 
 1. `.env`ファイルを作成し、`.env.dev.example`を参考に適切に環境変数を設定します。
 
