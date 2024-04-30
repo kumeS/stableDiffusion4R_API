@@ -162,8 +162,7 @@ function(prompt) {
 
 ## 本番環境のセットアップ (Docker を利用しない場合)
 
-> [!NOTE]
-> `Node.js`・`npm`・`yarn`が必要です。
+> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
 
 > [!NOTE]
 > 本番環境では、frontend を cloudflare tunnel を利用して配信することを想定しています。
@@ -211,7 +210,7 @@ CLOUDFLARE_TUNNEL_TOKEN=
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
-2. `backend/productionApi`で以下のコマンドを実行します。
+3. `backend/productionApi`で以下のコマンドを実行します。
 
 ※ローカルサーバーが起動します。
 
@@ -227,7 +226,7 @@ Mac
 #すいませんわかりません...。
 ```
 
-3. `frontend`で以下のコマンドを実行します。
+4. `frontend`で以下のコマンドを実行します。
 
 - フロントエンドで使用するパッケージマネージャー: npm
 
@@ -235,7 +234,7 @@ Mac
 npm i
 ```
 
-4. `frontend`で以下のコマンドを実行します。
+5. `frontend`で以下のコマンドを実行します。
 
 ※`npm start`で Web App をローカルサーバーで起動します。
 
@@ -397,8 +396,7 @@ http://localhost:6006/
 
 ## 開発環境のセットアップ (Docker を利用しない場合)
 
-> [!NOTE]
-> `Node.js`・`npm`・`yarn`が必要です。
+> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
 
 1. `.env`ファイルを作成し、`.env.dev.example`を参考に適切に環境変数を設定します。
 
@@ -490,6 +488,17 @@ http://localhost:6006/
 
 > [!NOTE]
 > モデルを追加した際にテストを実行して、テストが通ることを確認してください。
+
+テストを実行する前に、以下の部分を適宜変えてください。
+
+`frontend/src/__test__/generateImg.test.tsx`
+
+```typescript
+//*Web APIのURLを書く
+const setCorrectUrl = "http://localhost:8000";
+```
+
+テストの実行コマンド
 
 ```shell
 # frontendディレクトリで
