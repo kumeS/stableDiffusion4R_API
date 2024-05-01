@@ -92,6 +92,18 @@ flowchart LR
 > [!TIP]
 > モデルを追加する際には、必ずお読みください。
 
+> [!IMPORTANT]
+> バックエンドのエンドポイントとmodelTypeの要素名は一致させる必要があります。
+
+##### バックエンドのエンドポイントを書くファイル -> `/backend/productionApi/plumber.R`
+
+##### modelTypeが書いているファイル -> `frontend/src/constants/api.ts`
+
+##### バックエンドのエンドポイントを`/modelA/<prompt>`としている場合、`modelType: string[] = ["modelA"]`とします。
+
+> [!WARNING]
+> 以下の説明は、エンドポイントの名前をモデル名としているという設定で、説明しています。
+
 ### フロントエンド側の Web API に関係する設定
 
 #### frontend/src/constants/api.ts
@@ -128,7 +140,7 @@ modelType ・・・ モデルの名前を書きます。
 
 /backend/productionApi/plumber.R
 
-以下のプログラムの場合は、モデル名が「generateDalleImage4R」になります。
+以下のプログラムの場合は、モデル名が「stableDiffusion4R」になります。
 
 ```r
 library(plumber)
@@ -153,7 +165,7 @@ cors <- function(req, res) {
 
 #* Generate Dalle Image for R
 #* @param prompt プロンプトを入力してください。
-#* @get /generateDalleImage4R/<prompt>
+#* @get /stableDiffusion4R/<prompt>
 function(prompt) {
   content <- prompt
   results <- generateDalleImage4R(content, Output_image = F, SaveImg = T)
@@ -223,9 +235,7 @@ plumber.cmd
 
 Mac
 
-```shell
-#すいませんわかりません...。
-```
+`plumber.commnd`をダブルクリックします。
 
 4. `frontend`で以下のコマンドを実行します。
 
@@ -238,6 +248,9 @@ npm i
 5. `frontend`で以下のコマンドを実行します。
 
 ※`npm start`で Web App をローカルサーバーで起動します。
+
+> [!TIP]
+> `frontend`配下にあるプログラムに変更を加えた場合は、`npm run build`と`npm start`を`npm run build` -> `npm run start`の順で実行してください。
 
 ```shell
 npm run build
