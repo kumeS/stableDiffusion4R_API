@@ -235,9 +235,7 @@ plumber.cmd
 
 Mac
 
-```shell
-#すいませんわかりません...。
-```
+`plumber.commnd`をダブルクリックします。
 
 4. `frontend`で以下のコマンドを実行します。
 
