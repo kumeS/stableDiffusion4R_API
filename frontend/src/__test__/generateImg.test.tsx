@@ -4,7 +4,7 @@ import { modelType } from '@/constants/api';
 import userEvent from '@testing-library/user-event';
 
 //*Web APIのURLを書く
-const setCorrectUrl = 'http://localhost:8000';
+const setCorrectUrl = 'http://127.0.0.2:3000';
 
 describe('GenerateImg Component Test', () => {
     it('Render Component Test', () => {
