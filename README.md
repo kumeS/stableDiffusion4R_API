@@ -28,19 +28,22 @@
 
 - LICENSE Apache 2.0
 - 使用言語: R
+- IP address: 127.0.0.1
 - port: 8000
 
 本番のテスト環境: backend/preApi (plumber を使用)
 
 - LICENSE Apache 2.0
 - 使用言語: R
+- IP address: 127.0.0.1
 - port: 8000
 
 開発環境: backend/developmentApi (Hono を使用)
 
 - LICENSE MIT License
 - 使用言語: TypeScript
-- port: 8787
+- IP address: 127.0.0.1
+- port: 8000
 
 ### frontend
 
@@ -48,6 +51,7 @@ Next.js: frontend
 
 - LICENSE MIT License
 - 使用言語: TypeScript
+- IP address: 127.0.0.1
 - port: 3000
 
 storybook: frontend
@@ -93,11 +97,11 @@ flowchart LR
 > モデルを追加する際には、必ずお読みください。
 
 > [!IMPORTANT]
-> バックエンドのエンドポイントとmodelTypeの要素名は一致させる必要があります。
+> バックエンドのエンドポイントと modelType の要素名は一致させる必要があります。
 
 ##### バックエンドのエンドポイントを書くファイル -> `/backend/productionApi/plumber.R`
 
-##### modelTypeが書いているファイル -> `frontend/src/constants/api.ts`
+##### modelType が書いているファイル -> `frontend/src/constants/api.ts`
 
 ##### バックエンドのエンドポイントを`/modelA/<prompt>`としている場合、`modelType: string[] = ["modelA"]`とします。
 
@@ -123,9 +127,11 @@ modelType ・・・ モデルの名前を書きます。
 > [!NOTE]
 > エンドポイントは、`/モデル名/<prompt>`で設定する必要があります。
 
-> ※フロントエンドでは以下の URL が組み立てられます。
-> [`frontend/.env` 内の NEXT_PUBLIC_API_URL]/[modelType]/[prompt]
-> example) http://127.0.0.1:8787/stableDiffusion4R/hello
+※フロントエンドでは以下の URL が組み立てられます。
+
+[`frontend/.env` 内の NEXT_PUBLIC_API_URL]/[modelType]/[prompt]
+
+example) http://127.0.0.1:8787/stableDiffusion4R/hello
 
 ### 想定しているバックエンドが返すデータの構造
 
@@ -174,8 +180,7 @@ function(prompt) {
 
 ## 本番環境のセットアップ (Docker を利用しない場合)
 
-> [!NOTE]
-> `Node.js`・`npm`・`yarn`が必要です。
+> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
 
 > [!NOTE]
 > 本番環境では、frontend を cloudflare tunnel を利用して配信することを想定しています。
@@ -186,29 +191,13 @@ function(prompt) {
 
 - ホストマシンの環境に合わせて、cloudflare tunnel をセットアップしてください。
 
-2. `.env`ファイルを作成し、`.env.prod.example`を参考に適切に環境変数を設定します。
+2. `.env`ファイルを作成し、`frontend/.env.prod.example`を参考に適切に環境変数を設定します。
 
 - `.env`ファイルは、`gen_dotenv.cmd`(Windows 環境の場合)か`sh gen_dotenv.sh`(Linux 環境の場合)を実行することで生成できます。(初回時のみ実行してください。)
 
-- `NEXT_PUBLIC_API_URL`は、`.env.prod.example`に書いている情報をそのまま使ってください。
-
-- `CLOUDFLARE_TUNNEL_TOKEN`は、何も書かなくて OK です。
+- `NEXT_PUBLIC_API_URL`は、`frontend/.env.prod.example`に書いている情報をそのまま使ってください。
 
 以下のようになっていれば、OK です。
-
-#### `.env`
-
-```.env
-#*dev
-# NEXT_PUBLIC_API_URL=http://localhost:8787
-
-#*pre
-# NEXT_PUBLIC_API_URL=http://localhost:8000
-
-#*production
-NEXT_PUBLIC_API_URL=http://localhost:8000
-CLOUDFLARE_TUNNEL_TOKEN=
-```
 
 #### `frontend/.env`
 
@@ -410,7 +399,8 @@ http://localhost:6006/
 
 ## 開発環境のセットアップ (Docker を利用しない場合)
 
-> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
+> [!NOTE]
+> `Node.js`・`npm`・`yarn`が必要です。
 
 1. `.env`ファイルを作成し、`.env.dev.example`を参考に適切に環境変数を設定します。
 
