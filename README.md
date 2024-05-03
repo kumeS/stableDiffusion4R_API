@@ -127,9 +127,10 @@ modelType ・・・ モデルの名前を書きます。
 > [!NOTE]
 > エンドポイントは、`/モデル名/<prompt>`で設定する必要があります。
 
-> ※フロントエンドでは以下の URL が組み立てられます。
-> [!NOTE]
-> [`frontend/.env` 内の NEXT_PUBLIC_API_URL]/[modelType]/[prompt]
+※フロントエンドでは以下の URL が組み立てられます。
+
+[`frontend/.env` 内の NEXT_PUBLIC_API_URL]/[modelType]/[prompt]
+
 example) http://127.0.0.1:8787/stableDiffusion4R/hello
 
 ### 想定しているバックエンドが返すデータの構造
