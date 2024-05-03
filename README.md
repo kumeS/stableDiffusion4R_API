@@ -236,7 +236,8 @@ npm i
 
 ※`npm start`で Web App をローカルサーバーで起動します。
 
-> [!TIP] > `frontend`配下にあるプログラムに変更を加えた場合は、`npm run build`と`npm start`を`npm run build` -> `npm run start`の順で実行してください。
+> [!TIP]
+> `frontend`配下にあるプログラムに変更を加えた場合は、`npm run build`と`npm start`を`npm run build` -> `npm run start`の順で実行してください。
 
 ```shell
 npm run build
@@ -396,7 +397,8 @@ http://localhost:6006/
 
 ## 開発環境のセットアップ (Docker を利用しない場合)
 
-> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
+> [!NOTE]
+> `Node.js`・`npm`・`yarn`が必要です。
 
 1. `.env`ファイルを作成し、`.env.dev.example`を参考に適切に環境変数を設定します。
 
