@@ -1,3 +1,3 @@
-const modelType: string[] = ['stableDiffusion4R', 'modelA', 'modelB', 'modelC'];
+const modelType: string[] = ['dalle3'];
 
 export { modelType };

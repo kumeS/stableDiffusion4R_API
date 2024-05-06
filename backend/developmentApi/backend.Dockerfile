@@ -13,4 +13,4 @@ RUN yarn install
 
 CMD ["yarn", "dev"]
 
-EXPOSE 8000
+EXPOSE 8787

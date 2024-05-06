@@ -1,6 +1,8 @@
-library(plumber)
-# library(stableDiffusion4R)
+#install.packages("plumber")
+.libPaths("/Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library")
 
+library(plumber)
+library(stableDiffusion4R)
 
 #参考: https://www.rplumber.io/articles/annotations.html
 # Title
@@ -19,6 +21,7 @@ library(plumber)
 #* @apiTag stableDiffusion4R "Plumber stableDiffusion4R API"
 
 
+
 #* @filter cors
 cors <- function(req, res) {
   res$setHeader("Access-Control-Allow-Origin", "*")
@@ -35,40 +38,20 @@ cors <- function(req, res) {
   }
 }
 
-#* 本番のテスト用エンドポイント
+
+
+#* Generate Dalle Image for R
 #* @param prompt プロンプトを入力してください。
-#* @get /stableDiffusion4R/<prompt>
+#* @get /dalle3/<prompt:character>
 function(prompt) {
-  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
+  #prompt = "cat"
+  prompt <- prompt
+  url <- stableDiffusion4R::generateDalleImage4R(prompt, Output_image = F)
+
+  result <- list(prompt=url[1], url=url[2])
   return(result)
 }
 
-#* @param prompt プロンプトを入力してください。
-#* @get /modelA/<prompt>
-function(prompt) {
-  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
-  return(result)
-}
+#browseURL(results[2])
+#test: prompt = "cat"
 
-#* @param prompt プロンプトを入力してください。
-#* @get /modelB/<prompt>
-function(prompt) {
-  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
-  return(result)
-}
-
-#* @param prompt プロンプトを入力してください。
-#* @get /modelC/<prompt>
-function(prompt) {
-  result <- list(prompt=prompt, url=c('https://yukiosada.work/CG-Animation.webp'))
-  return(result)
-}
-
-#*以下、本番で使用する予定のプログラムです。
-# #* Generate Dalle Image for R
-# #* @param prompt プロンプトを入力してください。
-# #* @get /generateDalleImage4R/<prompt>
-# function(prompt) {
-#   content <- prompt
-#   results <- generateDalleImage4R(content, Output_image = F, SaveImg = T)
-# }

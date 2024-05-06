@@ -9,7 +9,7 @@ app.use(prettyJSON());
 app.use(
     '/*',
     cors({
-        origin: ['http://127.0.0.1:3000'],
+        origin: ['http://localhost:3000'],
         allowHeaders: ['Content-Type'],
         allowMethods: ['GET'],
         exposeHeaders: ['Content-Type'],
@@ -49,9 +49,9 @@ app.get('/modelC/:prompt', (c) => {
     });
 });
 
-const port = 8000;
+const port = 8787;
 
-console.log(`Server is running on port http://127.0.0.1:${port}`);
+console.log(`Server is running on port http://localhost:${port}`);
 
 serve({
     fetch: app.fetch,
