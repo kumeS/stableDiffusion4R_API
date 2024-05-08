@@ -1,6 +1,3 @@
-#install.packages("plumber")
-.libPaths("/Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library")
-
 library(plumber)
 library(stableDiffusion4R)
 
@@ -38,8 +35,6 @@ cors <- function(req, res) {
   }
 }
 
-
-
 #* Generate Dalle Image for R
 #* @param prompt プロンプトを入力してください。
 #* @get /dalle3/<prompt:character>
@@ -54,4 +49,3 @@ function(prompt) {
 
 #browseURL(results[2])
 #test: prompt = "cat"
-

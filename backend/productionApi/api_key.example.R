@@ -1,0 +1,2 @@
+OPENAI_API_KEY <- ''
+Sys.setenv(OPENAI_API_KEY = OPENAI_API_KEY)
