@@ -46,6 +46,3 @@ function(prompt) {
   result <- list(prompt=url[1], url=url[2])
   return(result)
 }
-
-#browseURL(results[2])
-#test: prompt = "cat"

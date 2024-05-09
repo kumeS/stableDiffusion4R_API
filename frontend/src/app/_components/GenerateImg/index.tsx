@@ -85,11 +85,16 @@ const GenerateImg = () => {
     const [model, setModel] = useState<string>(modelType[0]);
     const [prompt, setPrompt] = useState<string | undefined>();
     const [img, setImg] = useState<string>('');
+    const [resultPrompt, setResultPrompt] = useState<string>('');
 
     const getImg = async (url: string): Promise<void> => {
+        //実際のプロンプトと画像のURLを取得する
         try {
+            setResultPrompt('');
+            setImg('');
             const response = await fetch(url);
             const resJson = await response.json();
+            setResultPrompt(resJson.prompt[0]);
             setImg(resJson.url[0]);
         } catch (err) {
             console.error(err);
@@ -142,7 +147,7 @@ const GenerateImg = () => {
                 <></>
             ) : prompt !== '' ? (
                 <>
-                    <Label>Prompt: {prompt}</Label>
+                    <Label>Prompt: {resultPrompt}</Label>
                     {img !== '' ? (
                         <Image
                             src={img}
