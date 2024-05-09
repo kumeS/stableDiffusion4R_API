@@ -131,7 +131,7 @@ modelType ・・・ モデルの名前を書きます。
 
 [`frontend/.env` 内の NEXT_PUBLIC_API_URL]/[modelType]/[prompt]
 
-example) http://127.0.0.1:8787/stableDiffusion4R/hello
+example) http://127.0.0.1:8000/stableDiffusion4R/hello
 
 ### 想定しているバックエンドが返すデータの構造
 
@@ -171,23 +171,28 @@ cors <- function(req, res) {
 
 #* Generate Dalle Image for R
 #* @param prompt プロンプトを入力してください。
-#* @get /stableDiffusion4R/<prompt>
+#* @get /dalle3/<prompt:character>
 function(prompt) {
-  content <- prompt
-  results <- generateDalleImage4R(content, Output_image = F, SaveImg = T)
+  #prompt = "cat"
+  prompt <- prompt
+  url <- stableDiffusion4R::generateDalleImage4R(prompt, Output_image = F)
+
+  result <- list(prompt=url[1], url=url[2])
+  return(result)
 }
 ```
 
 ## 本番環境のセットアップ (Docker を利用しない場合)
 
-> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
+> [!NOTE]
+> `Node.js`・`npm`・`yarn`が必要です。
 
 > [!NOTE]
 > 本番環境では、frontend を cloudflare tunnel を利用して配信することを想定しています。
 
 1. cloudflare tunnel を作成します。
 
-- Service は、`http://localhost:3000`にします。
+- Service は、`http://127.0.0.1:3000`にします。
 
 - ホストマシンの環境に合わせて、cloudflare tunnel をセットアップしてください。
 
@@ -203,13 +208,13 @@ function(prompt) {
 
 ```.env
 #*dev
-# NEXT_PUBLIC_API_URL=http://localhost:8787
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*pre
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*production
-NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
 
 3. `backend/productionApi`で以下のコマンドを実行します。
@@ -238,8 +243,7 @@ npm i
 
 ※`npm start`で Web App をローカルサーバーで起動します。
 
-> [!TIP]
-> `frontend`配下にあるプログラムに変更を加えた場合は、`npm run build`と`npm start`を`npm run build` -> `npm run start`の順で実行してください。
+> [!TIP] > `frontend`配下にあるプログラムに変更を加えた場合は、`npm run build`と`npm start`を`npm run build` -> `npm run start`の順で実行してください。
 
 ```shell
 npm run build
@@ -272,13 +276,13 @@ npm start
 
 ```.env
 #*dev
-# NEXT_PUBLIC_API_URL=http://localhost:8787
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*pre
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*production
-NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 CLOUDFLARE_TUNNEL_TOKEN=<控えておいたtokenを書きます。>
 ```
 
@@ -286,13 +290,13 @@ CLOUDFLARE_TUNNEL_TOKEN=<控えておいたtokenを書きます。>
 
 ```.env
 #*dev
-# NEXT_PUBLIC_API_URL=http://localhost:8787
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*pre
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*production
-NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
 
 2.
@@ -319,13 +323,13 @@ Finish！
 
 ```.env
 #*dev
-# NEXT_PUBLIC_API_URL=http://localhost:8787
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*pre
-NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*production
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 # CLOUDFLARE_TUNNEL_TOKEN=
 ```
 
@@ -333,13 +337,13 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ```.env
 #*dev
-# NEXT_PUBLIC_API_URL=http://localhost:8787
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*pre
-NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*production
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
 
 2. CORS に関する適切な設定をします。
@@ -388,19 +392,18 @@ Finish！
 ウェブアプリへのアクセス
 
 ```text
-http://localhost:3000/
+http://127.0.0.1:3000/
 ```
 
 storybook が生成したカタログへのアクセス
 
 ```text
-http://localhost:6006/
+http://127.0.0.1:6006/
 ```
 
 ## 開発環境のセットアップ (Docker を利用しない場合)
 
-> [!NOTE]
-> `Node.js`・`npm`・`yarn`が必要です。
+> [!NOTE] > `Node.js`・`npm`・`yarn`が必要です。
 
 1. `.env`ファイルを作成し、`.env.dev.example`を参考に適切に環境変数を設定します。
 
@@ -414,13 +417,13 @@ http://localhost:6006/
 
 ```.env
 #*dev
-NEXT_PUBLIC_API_URL=http://localhost:8787
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*pre
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*production
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 # CLOUDFLARE_TUNNEL_TOKEN=
 ```
 
@@ -428,13 +431,13 @@ NEXT_PUBLIC_API_URL=http://localhost:8787
 
 ```.env
 #*dev
-NEXT_PUBLIC_API_URL=http://localhost:8787
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*pre
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*production
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
 
 2. `backend/developmentApi`で以下のコマンドを実行します。
@@ -445,7 +448,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8787
 
 ※ バックエンドのローカルサーバーも起動しておかないと、画像生成の機能がうまく動作しません。
 
-(現在はポートが 8787 で、ダミーのデータを返すようにしています。)
+(現在はポートが 8000 で、ダミーのデータを返すようにしています。)
 
 ```shell
 yarn
@@ -471,7 +474,7 @@ npm run dev
 ウェブアプリへのアクセス
 
 ```text
-http://localhost:3000/
+http://127.0.0.1:3000/
 ```
 
 → Storybook のカタログを見る場合、`frontend`で以下のコマンドを実行します。
@@ -485,7 +488,7 @@ npm run storybook
 storybook が生成したカタログへのアクセス
 
 ```text
-http://localhost:6006/
+http://127.0.0.1:6006/
 ```
 
 ### 開発環境でテストを実行するためのコマンド
@@ -499,7 +502,7 @@ http://localhost:6006/
 
 ```typescript
 //*Web APIのURLを書く
-const setCorrectUrl = "http://localhost:8000";
+const setCorrectUrl = "http://127.0.0.1:8000";
 ```
 
 テストの実行コマンド
@@ -552,13 +555,13 @@ npm start
 
 ```.env
 #*dev
-NEXT_PUBLIC_API_URL=http://localhost:8787
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*pre
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*production
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 # CLOUDFLARE_TUNNEL_TOKEN=
 ```
 
@@ -566,13 +569,13 @@ NEXT_PUBLIC_API_URL=http://localhost:8787
 
 ```.env
 #*dev
-NEXT_PUBLIC_API_URL=http://localhost:8787
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*pre
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 
 #*production
-# NEXT_PUBLIC_API_URL=http://localhost:8000
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
 
 2. `docker compose -f dev.docker-compose.yaml up -d`を実行します。
@@ -586,11 +589,11 @@ Finish！
 ウェブアプリへのアクセス
 
 ```text
-http://localhost:3000/
+http://127.0.0.1:3000/
 ```
 
 storybook が生成したカタログへのアクセス
 
 ```text
-http://localhost:6006/
+http://127.0.0.1:6006/
 ```

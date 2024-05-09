@@ -12,7 +12,7 @@
         "lint": "prettier --check \"./**/*.{js, ts, tsx, jsx}\" && eslint --ext .jsx,.js,.tsx,.ts .",
         "test": "jest --verbose",
         "test:watch": "jest --watch --verbose",
-        "storybook": "storybook dev -p 6006",
+        "storybook": "storybook dev -h 127.0.0.1 -p 6006",
         "build-storybook": "storybook build"
     },
     "lint-staged": {
