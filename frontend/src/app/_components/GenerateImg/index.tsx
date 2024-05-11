@@ -87,6 +87,9 @@ const GenerateImg = () => {
     const [img, setImg] = useState<string>('');
     const [resultPrompt, setResultPrompt] = useState<string>('');
 
+    //エラーメッセージ
+    const errorMsg: string = 'One or more errors have occurred！';
+
     const getImg = async (url: string): Promise<void> => {
         //実際のプロンプトと画像のURLを取得する
         try {
@@ -98,6 +101,8 @@ const GenerateImg = () => {
             setImg(resJson.url[0]);
         } catch (err) {
             console.error(err);
+            setResultPrompt(errorMsg);
+            setImg('error');
         }
     };
 
@@ -146,23 +151,29 @@ const GenerateImg = () => {
             {typeof prompt === 'undefined' ? (
                 <></>
             ) : prompt !== '' ? (
-                <>
-                    <Label>Prompt: {resultPrompt}</Label>
-                    {img !== '' ? (
-                        <Image
-                            src={img}
-                            width={1024}
-                            height={1024}
-                            sizes="100vw"
-                            style={{ width: '100%', height: 'auto' }}
-                            alt={'Generated Image'}
-                        />
-                    ) : (
-                        <>
-                            <Loading backgroundColor={LoadingBackgroundColor} />
-                        </>
-                    )}
-                </>
+                resultPrompt !== errorMsg && img !== 'error' ? (
+                    <>
+                        <Label>Prompt: {resultPrompt}</Label>
+                        {img !== '' ? (
+                            <Image
+                                src={img}
+                                width={1024}
+                                height={1024}
+                                sizes="100vw"
+                                style={{ width: '100%', height: 'auto' }}
+                                alt={'Generated Image'}
+                            />
+                        ) : (
+                            <>
+                                <Loading backgroundColor={LoadingBackgroundColor} />
+                            </>
+                        )}
+                    </>
+                ) : (
+                    <>
+                        <Label>{resultPrompt}</Label>
+                    </>
+                )
             ) : (
                 <VaridError data-testid="prompt-validation">プロンプトを入力して下さい。</VaridError>
             )}
