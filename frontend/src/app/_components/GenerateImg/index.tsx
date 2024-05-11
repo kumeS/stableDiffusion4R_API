@@ -102,7 +102,7 @@ const GenerateImg = () => {
         } catch (err) {
             console.error(err);
             setResultPrompt(errorMsg);
-            setImg('error');
+            setImg('error!');
         }
     };
 
